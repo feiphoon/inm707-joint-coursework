@@ -1,12 +1,12 @@
 """zero is the ground floor
 And maybe elevator doesn't need to know what floor it's on. It's the environment/states?
 """
-import numpy as np
+# import numpy as np
 from collections import deque
 
 
 class Elevator:
-    def __init__(self, capacity=1, num_floors=num_floors):
+    def __init__(self, num_floors, capacity=1):
         assert type(num_floors) is int
         assert type(capacity) is int
         self.capacity = capacity
