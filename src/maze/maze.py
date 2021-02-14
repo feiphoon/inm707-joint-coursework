@@ -1,6 +1,6 @@
 import operator
 from enum import Enum, IntEnum, unique
-from random import randint
+from random import randint, choice
 import numpy as np
 
 
@@ -58,11 +58,13 @@ class Maze:
         https://medium.com/swlh/fun-with-python-1-maze-generator-931639b4fb7e
         """
         # Pick starting coordinates to build maze.
-        # The starting point cannot be on the edge of the maze.
+        # The starting point cannot be on the edge of the maze,
+        # so that we have space for neighbours (-1),
+        # and don't forget zero-indexing (-1). That gives us -2.
         # Immutable.
         self.generation_start_coords = (
-            randint(1, self.maze_height - 1),
-            randint(1, self.maze_width - 1),
+            randint(1, self.maze_height - 2),
+            randint(1, self.maze_width - 2),
         )
 
         self.maze[self.generation_start_coords] = Cell.EMPTY.value
