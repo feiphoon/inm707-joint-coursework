@@ -23,7 +23,7 @@ class Step(Enum):
     RIGHT = (0, 1)
 
 
-CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: ".", 3: "E", 4: "-", 5: "?", 9: "A"}
+CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: "I", 3: "O", 4: "-", 5: "?", 9: "A"}
 
 
 class Maze:
