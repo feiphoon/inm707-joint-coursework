@@ -121,18 +121,6 @@ class Maze:
         # Get coordinates of neighbours directly,
         # above, below, left and right of the starting point.
         self.generation_start_neighbours = []
-        # self.generation_start_neighbours[Step.UP.name] = tuple(
-        #     map(operator.add, self.generation_start_coords, Step.UP.value)
-        # )
-        # self.generation_start_neighbours[Step.DOWN.name] = tuple(
-        #     map(operator.add, self.generation_start_coords, Step.DOWN.value)
-        # )
-        # self.generation_start_neighbours[Step.LEFT.name] = tuple(
-        #     map(operator.add, self.generation_start_coords, Step.LEFT.value)
-        # )
-        # self.generation_start_neighbours[Step.RIGHT.name] = tuple(
-        #     map(operator.add, self.generation_start_coords, Step.RIGHT.value)
-        # )
 
         self.generation_start_neighbours.append(
             self._add_coord_tuples(self.generation_start_coords, Step.UP)
