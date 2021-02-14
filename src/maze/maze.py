@@ -2,6 +2,7 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
+from collections import namedtuple
 
 from datetime import datetime
 import logging
@@ -19,6 +20,9 @@ logger = logging.getLogger()
 
 logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
 print = logger.debug
+
+# TODO: Observations
+# Observation = namedtuple("Observation", "distance_to_exit neighbours")
 
 
 @unique
@@ -492,6 +496,25 @@ class Maze:
         print(show_maze_repr)
         if debug:
             print(vars(self))
+
+    def reset(self):
+        # TODO: Need to randomise entrance and exit placement along both rows...
+        # Or maybe just the entrance and the agent always starts there.
+        self._create_entrance_exit()
+        # TODO: Update self.position_agent
+        self.turns_elapsed = 0
+        # TODO: Calculate and return observations
+        # observations = self._calculate_observations()
+        # return observations
+
+    def _calculate_observations(self):
+        # TODO: write this
+        # return Observations(..., ...)
+        pass
+
+    def step(self):
+        # TODO: make step
+        pass
 
 
 m = Maze()
