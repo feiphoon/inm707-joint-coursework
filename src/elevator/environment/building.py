@@ -32,8 +32,8 @@ class Building:
         """
         >>> b = Building(1, 2)
         >>> print(b.num_floors)
-        1
-        >>> print(b.num_passengers)
+        2
+        >>> print(b.max_num_passengers)
         2
         """
         assert type(num_floors) is int
