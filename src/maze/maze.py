@@ -125,6 +125,320 @@ class Maze:
         # self.maze[:, -1] = Cell.WALL.value
         # self.maze[0, :] = Cell.WALL.value
         # self.maze[-1, :] = Cell.WALL.value
+        while len(self.generation_start_neighbours) != 0:
+            # Pick a random wall
+            rand_nb_coords = choice(self.generation_start_neighbours)
+            print("all", self.generation_start_neighbours)
+            print("rand coord", rand_nb_coords)
+
+            # Check if it is a left wall
+            if rand_nb_coords[1] != 0:
+                if (
+                    self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
+                    == Cell.UNTRAVERSED.value
+                    and self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
+                    == Cell.EMPTY.value
+                ):
+                    # Find the number of surrounding cells
+                    if self._count_surrounding_empty_cells(rand_nb_coords) < 2:
+                        # Denote the new path
+                        self.maze[rand_nb_coords] = Cell.EMPTY.value
+
+                        # Mark the new walls
+                        # Upper cell
+                        if rand_nb_coords[0] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                )
+
+                        # Bottom cell
+                        if rand_nb_coords[0] != self.maze_height - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                )
+
+                        # Leftmost cell
+                        if rand_nb_coords[1] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                )
+
+                    # Delete wall
+                    for _ in self.generation_start_neighbours:
+                        if _ == rand_nb_coords:
+                            self.generation_start_neighbours.remove(_)
+
+                    continue
+
+            # Check if it is an upper wall
+            if rand_nb_coords[0] != 0:
+                if (
+                    self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
+                    == Cell.UNTRAVERSED.value
+                    and self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
+                    == Cell.EMPTY.value
+                ):
+
+                    if self._count_surrounding_empty_cells(rand_nb_coords) < 2:
+                        # Denote the new path
+                        self.maze[rand_nb_coords] = Cell.EMPTY.value
+
+                        # Mark the new walls
+                        # Upper cell
+                        if rand_nb_coords[0] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                )
+
+                        # Leftmost cell
+                        if rand_nb_coords[1] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                )
+
+                        # Rightmost cell
+                        if rand_nb_coords[1] != self.maze_width - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                )
+
+                    # Delete wall
+                    for _ in self.generation_start_neighbours:
+                        if _ == rand_nb_coords:
+                            self.generation_start_neighbours.remove(_)
+
+                    continue
+
+            # Check the bottom wall
+            if rand_nb_coords[0] != self.maze_height - 1:
+                if (
+                    self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
+                    == Cell.UNTRAVERSED.value
+                    and self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
+                    == Cell.EMPTY.value
+                ):
+                    if self._count_surrounding_empty_cells(rand_nb_coords) < 2:
+                        # Denote the new path
+                        self.maze[rand_nb_coords] = Cell.EMPTY.value
+
+                        # Mark the new walls
+                        if rand_nb_coords[0] != self.maze_height - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                )
+                        if rand_nb_coords[1] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.LEFT)
+                                )
+                        if rand_nb_coords[1] != self.maze_width - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                )
+
+                    # Delete wall
+                    for _ in self.generation_start_neighbours:
+                        if _ == rand_nb_coords:
+                            self.generation_start_neighbours.remove(_)
+
+                    continue
+
+            # Check the right wall
+            if rand_nb_coords[1] != self.maze_width - 1:
+                if (
+                    self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
+                    == Cell.UNTRAVERSED.value
+                    and self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
+                    == Cell.EMPTY.value
+                ):
+
+                    if self._count_surrounding_empty_cells(rand_nb_coords) < 2:
+                        # Denote the new path
+                        self.maze[rand_nb_coords] = Cell.EMPTY.value
+
+                        # Mark the new walls
+                        if rand_nb_coords[1] != self.maze_width - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.RIGHT)
+                                )
+                        if rand_nb_coords[0] != self.maze_height - 1:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.DOWN)
+                                )
+                        if rand_nb_coords[0] != 0:
+                            if (
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ]
+                                != Cell.EMPTY.value
+                            ):
+                                self.maze[
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                ] = Cell.WALL.value
+                            if (
+                                self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                not in self.generation_start_neighbours
+                            ):
+                                self.generation_start_neighbours.append(
+                                    self._add_coord_tuples(rand_nb_coords, Step.UP)
+                                )
+
+                    # Delete wall
+                    for _ in self.generation_start_neighbours:
+                        if _ == rand_nb_coords:
+                            self.generation_start_neighbours.remove(_)
+
+                    continue
+
+            # Delete the wall from the list anyway
+            for _ in self.generation_start_neighbours:
+                if _ == rand_nb_coords:
+                    self.generation_start_neighbours.remove(_)
+
+        self.display(debug=False)
+
 
     def display(self, debug=False):
         show_maze = self.maze.copy()
