@@ -51,6 +51,9 @@ class Maze:
         # Turns or timesteps
         self.turns_elapsed = 0
 
+    def _add_coord_tuples(self, coord, step):
+        return tuple(map(operator.add, coord, step.value))
+
     def _build_maze(self):
         """Following Randomised Prim's algorithm:
         https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
@@ -72,17 +75,33 @@ class Maze:
         # Get coordinates of neighbours directly,
         # above, below, left and right of the starting point.
         self.generation_start_neighbours = {}
-        self.generation_start_neighbours[Step.UP.name] = tuple(
-            map(operator.add, self.generation_start_coords, Step.UP.value)
+        # self.generation_start_neighbours[Step.UP.name] = tuple(
+        #     map(operator.add, self.generation_start_coords, Step.UP.value)
+        # )
+        # self.generation_start_neighbours[Step.DOWN.name] = tuple(
+        #     map(operator.add, self.generation_start_coords, Step.DOWN.value)
+        # )
+        # self.generation_start_neighbours[Step.LEFT.name] = tuple(
+        #     map(operator.add, self.generation_start_coords, Step.LEFT.value)
+        # )
+        # self.generation_start_neighbours[Step.RIGHT.name] = tuple(
+        #     map(operator.add, self.generation_start_coords, Step.RIGHT.value)
+        # )
+
+        self.generation_start_neighbours[Step.UP.name] = self._add_coord_tuples(
+            self.generation_start_coords, Step.UP
         )
-        self.generation_start_neighbours[Step.DOWN.name] = tuple(
-            map(operator.add, self.generation_start_coords, Step.DOWN.value)
+
+        self.generation_start_neighbours[Step.DOWN.name] = self._add_coord_tuples(
+            self.generation_start_coords, Step.DOWN
         )
-        self.generation_start_neighbours[Step.LEFT.name] = tuple(
-            map(operator.add, self.generation_start_coords, Step.LEFT.value)
+
+        self.generation_start_neighbours[Step.LEFT.name] = self._add_coord_tuples(
+            self.generation_start_coords, Step.LEFT
         )
-        self.generation_start_neighbours[Step.RIGHT.name] = tuple(
-            map(operator.add, self.generation_start_coords, Step.RIGHT.value)
+
+        self.generation_start_neighbours[Step.RIGHT.name] = self._add_coord_tuples(
+            self.generation_start_coords, Step.RIGHT
         )
 
         # Apply walls to surround starting point in the maze.
