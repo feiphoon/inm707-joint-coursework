@@ -157,8 +157,6 @@ class Maze:
         while len(self.generation_start_neighbours) != 0:
             # Pick a random wall
             rand_nb_coords = choice(self.generation_start_neighbours)
-            print("all", self.generation_start_neighbours)
-            print("rand coord", rand_nb_coords)
 
             # Check if it is a left wall
             if rand_nb_coords[1] != 0:
@@ -466,14 +464,14 @@ class Maze:
                 if _ == rand_nb_coords:
                     self.generation_start_neighbours.remove(_)
 
-        self.display(debug=False)
+        # self.display()
 
         # Now some cells that will be untraversed, left in gaps.
         # Convert them to walls
         self._fill_in_walls()
-
-        self.display(debug=False)
+        # self.display()
         self._create_entrance_exit()
+        # self.display()
 
     def display(self, debug=False):
         show_maze = self.maze.copy()
@@ -499,4 +497,4 @@ class Maze:
 
 
 m = Maze()
-m.display(debug=True)
+m.display()
