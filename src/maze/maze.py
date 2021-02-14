@@ -81,6 +81,25 @@ class Maze:
                 if self.maze[i][j] == Cell.UNTRAVERSED.value:
                     self.maze[i][j] = Cell.WALL.value
 
+    def _create_entrance_exit(self):
+        # Create entrance (top of maze)
+        for i in range(0, self.maze_width):
+            # Check for first instance of the second row
+            # (row[1]) having a clear empty cell.
+            # If it does, we will put the entrance above it, on the border.
+            if self.maze[1][i] == Cell.EMPTY.value:
+                self.maze[0][i] = Cell.ENTRANCE.value
+                break
+
+        # Create exit (bottom of maze)
+        for i in range(self.maze_width - 1, 0, -1):
+            # Check for first instance of the second last row
+            # (row[-2]) having a clear empty cell.
+            # If it does, we will put the exit below it, on the border.
+            if self.maze[self.maze_height - 2][i] == Cell.EMPTY.value:
+                self.maze[self.maze_height - 1][i] = Cell.EXIT.value
+                break
+
     def _build_maze(self):
         """Following Randomised Prim's algorithm:
         https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
@@ -454,6 +473,7 @@ class Maze:
         self._fill_in_walls()
 
         self.display(debug=False)
+        self._create_entrance_exit()
 
     def display(self, debug=False):
         show_maze = self.maze.copy()
