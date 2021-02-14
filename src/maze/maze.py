@@ -31,7 +31,7 @@ class Step(Enum):
 #     AGENT = "A"
 
 
-CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: ".", 3: "E", 4: "U", 5: "?", 9: "A"}
+CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: ".", 3: "E", 4: "-", 5: "?", 9: "A"}
 
 
 class Maze:
