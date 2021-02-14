@@ -68,26 +68,25 @@ class Maze:
         )
 
         self.maze[self.generation_start_coords] = Cell.EMPTY.value
-        print(self.maze)
 
         # Get coordinates of neighbours directly,
         # above, below, left and right of the starting point.
-        self.generation_start_neighbours = []
-        self.generation_start_neighbours.append(
-            tuple(map(operator.add, self.generation_start_coords, Step.UP.value))
+        self.generation_start_neighbours = {}
+        self.generation_start_neighbours["UP"] = tuple(
+            map(operator.add, self.generation_start_coords, Step.UP.value)
         )
-        self.generation_start_neighbours.append(
-            tuple(map(operator.add, self.generation_start_coords, Step.DOWN.value))
+        self.generation_start_neighbours["DOWN"] = tuple(
+            map(operator.add, self.generation_start_coords, Step.DOWN.value)
         )
-        self.generation_start_neighbours.append(
-            tuple(map(operator.add, self.generation_start_coords, Step.LEFT.value))
+        self.generation_start_neighbours["LEFT"] = tuple(
+            map(operator.add, self.generation_start_coords, Step.LEFT.value)
         )
-        self.generation_start_neighbours.append(
-            tuple(map(operator.add, self.generation_start_coords, Step.RIGHT.value))
+        self.generation_start_neighbours["RIGHT"] = tuple(
+            map(operator.add, self.generation_start_coords, Step.RIGHT.value)
         )
 
-        # Apply walls to surround starting point.
-        for _ in self.generation_start_neighbours:
+        # Apply walls to surround starting point in the maze.
+        for _ in self.generation_start_neighbours.values():
             self.maze[_] = Cell.WALL.value
 
         #
