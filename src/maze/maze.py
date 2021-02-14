@@ -65,6 +65,22 @@ class Maze:
         ]
         return sum(a)
 
+    def _fill_in_walls(self):
+        """
+        Convert untraversed cells, left in gaps, to walls.
+        """
+        # Set all border cells as walls.
+        self.maze[:, 0] = Cell.WALL.value
+        self.maze[:, -1] = Cell.WALL.value
+        self.maze[0, :] = Cell.WALL.value
+        self.maze[-1, :] = Cell.WALL.value
+
+        # Fill in untraversed gaps
+        for i in range(0, self.maze_height):
+            for j in range(0, self.maze_width):
+                if self.maze[i][j] == Cell.UNTRAVERSED.value:
+                    self.maze[i][j] = Cell.WALL.value
+
     def _build_maze(self):
         """Following Randomised Prim's algorithm:
         https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
@@ -119,12 +135,6 @@ class Maze:
         for _ in self.generation_start_neighbours:
             self.maze[_] = Cell.WALL.value
 
-        #
-        # All border cells are obstacles.
-        # self.maze[:, 0] = Cell.WALL.value
-        # self.maze[:, -1] = Cell.WALL.value
-        # self.maze[0, :] = Cell.WALL.value
-        # self.maze[-1, :] = Cell.WALL.value
         while len(self.generation_start_neighbours) != 0:
             # Pick a random wall
             rand_nb_coords = choice(self.generation_start_neighbours)
@@ -439,6 +449,11 @@ class Maze:
 
         self.display(debug=False)
 
+        # Now some cells that will be untraversed, left in gaps.
+        # Convert them to walls
+        self._fill_in_walls()
+
+        self.display(debug=False)
 
     def display(self, debug=False):
         show_maze = self.maze.copy()
