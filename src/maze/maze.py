@@ -23,14 +23,6 @@ class Step(Enum):
     RIGHT = (0, 1)
 
 
-# class CellDisplay(Enum):
-#     CELL = "."
-#     WALL = "X"
-#     ENTRANCE = "."
-#     EXIT = "E"
-#     AGENT = "A"
-
-
 CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: ".", 3: "E", 4: "-", 5: "?", 9: "A"}
 
 
