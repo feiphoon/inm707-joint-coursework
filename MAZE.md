@@ -29,6 +29,10 @@ CELL_DISPLAY_DICT = {
 
 Generate and display the maze like so:
 
+```bash
+python maze.py
+```
+
 ```python
 m5 = Maze()
 m5.display()
