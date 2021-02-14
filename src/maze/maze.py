@@ -54,27 +54,16 @@ class Maze:
     def _add_coord_tuples(self, coord, step):
         return tuple(map(operator.add, coord, step.value))
 
-    def _count_surrounding_empty_cells(self):
+    def _count_surrounding_empty_cells(self, rand_nb_coords):
         """
         Make a useful surrounding cell function.
         Count the number of surrounding empty cells.
         """
-        # return len(
-        #     [
-        #         self.maze[tuple(map(operator.add, self.generation_start_coords, _))]
-        #         == Cell.EMPTY.value
-        #         for _ in list(Step.value)
-        #     ]
-        # )
-        a = len(
-            [
-                self.maze[self._add_coord_tuples(self.generation_start_coords, _)]
-                == Cell.EMPTY.value
-                for _ in list(Step)
-            ]
-        )
-        print("Num of surrounding empty cells", a)
-        return a
+        a = [
+            self.maze[self._add_coord_tuples(rand_nb_coords, _)] == Cell.EMPTY.value
+            for _ in list(Step)
+        ]
+        return sum(a)
 
     def _build_maze(self):
         """Following Randomised Prim's algorithm:
