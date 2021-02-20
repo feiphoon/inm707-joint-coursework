@@ -51,11 +51,13 @@ CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: "I", 3: "O", 4: "-", 5: "?", 9: "A"}
 
 
 class Maze:
-    def __init__(self, width: int = 5, height: int = 5) -> None:
-        assert type(width) is int
-        assert type(height) is int
-        self.maze_width = width
-        self.maze_height = height
+    def __init__(self, size: int = 5) -> None:
+        """
+        Maze can only be square for now.
+        """
+        assert type(size) is int
+        self.maze_width = size
+        self.maze_height = size
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
