@@ -2,7 +2,8 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
-from collections import namedtuple
+
+# from collections import namedtuple
 
 from datetime import datetime
 
@@ -546,7 +547,8 @@ class Maze:
 
 
 m = Maze()
-# m.display(debug=True)
+m.display(debug=True)
+print(m._find_empty_cells())
 
 # TODO:
 # Make sure the agent can step in different directions correctly
