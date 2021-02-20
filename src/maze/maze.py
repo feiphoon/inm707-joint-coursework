@@ -110,7 +110,7 @@ class Maze:
             # If it does, we will put the entrance above it, on the border.
             if self.maze[1][i] == Cell.EMPTY.value:
                 self.maze[0][i] = Cell.ENTRANCE.value
-                self.position_entrance = (i, j)
+                self.position_entrance = (0, i)
                 break
 
         # Create exit (bottom of maze)
@@ -120,7 +120,7 @@ class Maze:
             # If it does, we will put the exit below it, on the border.
             if self.maze[self.maze_height - 2][i] == Cell.EMPTY.value:
                 self.maze[self.maze_height - 1][i] = Cell.EXIT.value
-                self.position_exit = (i, j)
+                self.position_exit = (self.maze_height - 1, i)
                 break
 
     def _build_maze(self):
