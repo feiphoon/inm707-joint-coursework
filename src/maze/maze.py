@@ -21,7 +21,7 @@ logger = logging.getLogger()
 logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
 print = logger.debug
 
-# TODO: Observations
+# TODO: Observations - maybe only neighbours
 # Observation = namedtuple("Observation", "distance_to_exit neighbours")
 
 
@@ -35,7 +35,7 @@ class Cell(IntEnum):
     ERROR = 5
 
 
-# Probably going to replace this later
+# TODO: Probably going to replace this later as Action
 @unique
 class Step(Enum):
     UP = (-1, 0)
@@ -508,14 +508,36 @@ class Maze:
         # return observations
 
     def _calculate_observations(self):
-        # TODO: write this
+        # TODO: calculate observations - abstraction out of .step()
         # return Observations(..., ...)
         pass
 
     def step(self):
         # TODO: make step
+        # There are only 4 - up, down, left and right. Try implementing them as enums
+        # TODO: React to environment, i.e calculate the next step and result.
+        # If there is a wall, _bump.
+        # TODO: everytime you move, add a reward
         pass
 
 
 m = Maze()
-m.display()
+# m.display(debug=True)
+
+# TODO:
+# Make sure the agent can step in different directions correctly
+# Make sure the rewards are correct
+# Make sure the done state is correct
+# Make sure that the timesteps elapsed is correct
+
+#  m.step(Step.UP)
+# m.display(debug=True)
+
+#  m.step(Step.DOWN)
+# m.display(debug=True)
+
+#  m.step(Step.LEFT)
+# m.display(debug=True)
+
+#  m.step(Step.RIGHT)
+# m.display(debug=True)
