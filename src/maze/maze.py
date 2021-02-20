@@ -5,21 +5,22 @@ import numpy as np
 from collections import namedtuple
 
 from datetime import datetime
-import logging
+
+# import logging
 
 
-dt_now = datetime.now()
-dt_str = dt_now.strftime("%Y%m%d-%H%M%S")
-LOG_PATH = f"logs/{dt_str}.log"
+# dt_now = datetime.now()
+# dt_str = dt_now.strftime("%Y%m%d-%H%M%S")
+# LOG_PATH = f"logs/{dt_str}.log"
 
-with open(LOG_PATH, "w") as f:
-    f.write(dt_now.strftime("%c"))
+# with open(LOG_PATH, "w") as f:
+#     f.write(dt_now.strftime("%c"))
 
-logging.basicConfig(filename=LOG_PATH, filemode="a", level=logging.DEBUG)
-logger = logging.getLogger()
+# logging.basicConfig(filename=LOG_PATH, filemode="a", level=logging.DEBUG)
+# logger = logging.getLogger()
 
-logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
-print = logger.debug
+# logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
+# print = logger.debug
 
 # TODO: Observations - maybe only neighbours
 # Observation = namedtuple("Observation", "distance_to_exit neighbours")
@@ -67,7 +68,7 @@ class Maze:
 
         # Turns or timesteps
         self.turns_elapsed = 0
-        logger.debug(self.display(debug=True))
+        # logger.debug(self.display(debug=True))
 
         # Make a done state for Maze
         self.done = False
