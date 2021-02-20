@@ -69,6 +69,9 @@ class Maze:
         self.turns_elapsed = 0
         logger.debug(self.display(debug=True))
 
+        # Make a done state for Maze
+        self.done = False
+
     def _add_coord_tuples(self, coord, step):
         return tuple(map(operator.add, coord, step.value))
 
@@ -513,6 +516,8 @@ class Maze:
         # TODO: Calculate and return observations
         # observations = self._calculate_observations()
         # return observations
+
+        # TODO: Reset done state for Maze
 
     def _calculate_observations(self):
         # TODO: calculate observations - abstraction out of .step()
