@@ -72,6 +72,7 @@ class Maze:
         # Make a done state for Maze
         self.done = False
 
+    def _add_coord_tuples(self, coord: tuple, step: Step) -> tuple:
         return tuple(map(operator.add, coord, step.value))
 
     def _count_surrounding_empty_cells(self, rand_nb_coords: tuple) -> int:
