@@ -72,6 +72,16 @@ class Maze:
         # Make a done state for Maze
         self.done = False
 
+    def _find_empty_cells(self) -> list[tuple]:
+        # Gives us two arrays of indices - first array
+        # for row and second for column indices.
+        # E.g. array([1, 3]), array([2, 4])
+        cell_indices_arrays = np.where(self.maze == Cell.EMPTY.value)
+
+        # Zip these together to give a list of tuples of coordinates
+        # E.g. [(1, 2), (3, 4)]
+        return list(zip(cell_indices_arrays[0], cell_indices_arrays[1]))
+
     def _add_coord_tuples(self, coord: tuple, step: Step) -> tuple:
         return tuple(map(operator.add, coord, step.value))
 
