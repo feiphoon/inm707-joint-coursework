@@ -34,6 +34,7 @@ class Cell(IntEnum):
     EXIT = 3
     UNTRAVERSED = 4
     ERROR = 5
+    AGENT = 9
 
 
 # TODO: Probably going to replace this later as Action
