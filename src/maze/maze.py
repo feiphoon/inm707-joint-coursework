@@ -54,12 +54,16 @@ class Maze:
         self.maze_width = width
         self.maze_height = height
         self.position_agent = None
+        self.position_entrance = None
+        self.position_exit = None
 
         self.maze = np.full(
             (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
         )
 
         self._build_maze()
+
+        self.position_agent = self.position_entrance
 
         # Turns or timesteps
         self.turns_elapsed = 0
@@ -103,6 +107,7 @@ class Maze:
             # If it does, we will put the entrance above it, on the border.
             if self.maze[1][i] == Cell.EMPTY.value:
                 self.maze[0][i] = Cell.ENTRANCE.value
+                self.position_entrance = (i, j)
                 break
 
         # Create exit (bottom of maze)
@@ -112,6 +117,7 @@ class Maze:
             # If it does, we will put the exit below it, on the border.
             if self.maze[self.maze_height - 2][i] == Cell.EMPTY.value:
                 self.maze[self.maze_height - 1][i] = Cell.EXIT.value
+                self.position_exit = (i, j)
                 break
 
     def _build_maze(self):
@@ -498,10 +504,11 @@ class Maze:
             print(vars(self))
 
     def reset(self):
-        # TODO: Need to randomise entrance and exit placement along both rows...
-        # Or maybe just the entrance and the agent always starts there.
+        # Start entrance and the agent at the same place
         self._create_entrance_exit()
-        # TODO: Update self.position_agent
+        # Update position_agent to position_entrance
+        self.position_agent = self.position_entrance
+
         self.turns_elapsed = 0
         # TODO: Calculate and return observations
         # observations = self._calculate_observations()
