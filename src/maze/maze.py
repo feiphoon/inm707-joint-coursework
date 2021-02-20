@@ -73,7 +73,7 @@ class Maze:
         # Make a done state for Maze
         self.done = False
 
-    def _find_empty_cells(self) -> list[tuple]:
+    def _find_empty_cells(self) -> [tuple]:
         # Gives us two arrays of indices - first array
         # for row and second for column indices.
         # E.g. array([1, 3]), array([2, 4])
