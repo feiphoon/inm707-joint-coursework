@@ -2,6 +2,7 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
+import operator
 
 # from collections import namedtuple
 
@@ -24,7 +25,7 @@ from datetime import datetime
 # print = logger.debug
 
 # TODO: Observations - maybe only neighbours
-# Observation = namedtuple("Observation", "distance_to_exit neighbours")
+#Observation = namedtuple("Observation", "distance_to_exit neighbours")
 
 
 @unique
@@ -61,6 +62,7 @@ class Maze:
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
+        self.time_elapsed = 0
 
         self.maze = np.full(
             (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
@@ -521,7 +523,7 @@ class Maze:
         if debug:
             print(vars(self))
 
-    def reset(self) -> None:
+    def reset(self):
         # Start entrance and the agent at the same place
         self._create_entrance_exit()
         # Update position_agent to position_entrance
@@ -529,29 +531,76 @@ class Maze:
 
         self.turns_elapsed = 0
         # TODO: Calculate and return observations
-        # observations = self._calculate_observations()
-        # return observations
+        observations = self._calculate_observations()
+        
+        return observations
 
         # TODO: Reset done state for Maze
 
-    def _calculate_observations(self) -> None:
+    def _calculate_observations(self):
         # TODO: calculate observations - abstraction out of .step()
-        # return Observations(..., ...)
-        pass
+        
+        relative_coordinates = tuple(map(operator.sub, self.position_exit, self.position_agent))
 
-    def step(self) -> None:
-        # TODO: make step
-        # There are only 4 - up, down, left and right. Try implementing them as enums
-        # TODO: React to environment, i.e calculate the next step and result.
-        # If there is a wall, _bump.
-        # TODO: everytime you move, add a reward
-        pass
+        surroundings = self.maze[ self.position_agent[0] -1: self.position_agent[0] +2,
+                                     self.position_agent[1] -1: self.position_agent[1] +2]
+        # return Observations(..., ...)
+        Observations = {"relative_coordinates": relative_coordinates,
+                "surroundings": surroundings}
+
+        return Observations        
+        
+
+    def step(self, action: Step)->(list, int, bool):
+        
+        # At every timestep, the agent receives a negative reward
+        reward = -1
+        bump = False
+        
+        # action is 'up', 'down', 'left', or 'right'
+        
+        next_position = tuple(map(operator.add, self.position_agent, action.value))
+
+    
+
+        # If the agent bumps into a wall, it doesn't move
+        if self.maze[next_position[0], next_position[1]] == 1:
+            bump = True
+        else:
+            self.position_agent = next_position
+        
+        # calculate reward
+        current_cell_type = self.maze[self.position_agent[0], self.position_agent[1]]
+        if current_cell_type == 2:
+            reward -= 20
+        
+        if current_cell_type == 3:
+            reward += self.size**2
+            
+        if bump:
+            reward -= 5
+        
+        # calculate observations
+        observations = self._calculate_observations()
+        
+        # update time
+        self.time_elapsed += 1
+       
+            
+        return observations, reward, False
+
+    
+
+
 
 
 m = Maze()
-m.display(debug=True)
-print(m._find_empty_cells())
 
+m.display(debug=True)
+m.step(Step.DOWN)
+m.display(debug=True)
+#print(m._find_empty_cells())
+print("buyaaa")
 # TODO:
 # Make sure the agent can step in different directions correctly
 # Make sure the rewards are correct
