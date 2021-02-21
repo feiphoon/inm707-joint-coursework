@@ -2,9 +2,8 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
-import operator
-
-# from collections import namedtuple
+from typing import List
+from collections import namedtuple
 
 from datetime import datetime
 
@@ -539,58 +538,61 @@ class Maze:
 
     def _calculate_observations(self):
         # TODO: calculate observations - abstraction out of .step()
-        
-        relative_coordinates = tuple(map(operator.sub, self.position_exit, self.position_agent))
-
+   
+        relative_coordinates = tuple(map(operator.sub,self.position_exit, self.position_agent))
+    
         surroundings = self.maze[ self.position_agent[0] -1: self.position_agent[0] +2,
                                      self.position_agent[1] -1: self.position_agent[1] +2]
-        # return Observations(..., ...)
-        Observations = {"relative_coordinates": relative_coordinates,
-                "surroundings": surroundings}
 
-        return Observations        
+
         
+       # obs ={'relative_coordinates':relative_coordinates,
+              # 'surroundings': surroundings}
+
+        #Observation = namedtuple('Observation',obs.keys())
+        Observation = namedtuple('Observation',["relative_coordinates","surroundings"])
+        
+        return Observation(relative_coordinates,surroundings)
+        
+    
 
     def step(self, action: Step)->(list, int, bool):
         
         # At every timestep, the agent receives a negative reward
         reward = -1
-        bump = False
+        _bump = False
         
-        # action is 'up', 'down', 'left', or 'right'
+        # calculate the next position based on the action
         
-        next_position = tuple(map(operator.add, self.position_agent, action.value))
+        next_position = self._add_coord_tuples(self.position_agent, action)
 
     
-
         # If the agent bumps into a wall, it doesn't move
-        if self.maze[next_position[0], next_position[1]] == 1:
-            bump = True
+        if self.maze[next_position] == Cell.WALL.value:
+            _bump = True
         else:
             self.position_agent = next_position
-        
+
         # calculate reward
-        current_cell_type = self.maze[self.position_agent[0], self.position_agent[1]]
-        if current_cell_type == 2:
+        current_cell_type = self.maze[self.position_agent]
+        if current_cell_type == Cell.WALL.value:
             reward -= 20
-        
+
         if current_cell_type == 3:
             reward += self.size**2
             
-        if bump:
+        if _bump:
             reward -= 5
         
         # calculate observations
         observations = self._calculate_observations()
+
         
         # update time
-        self.time_elapsed += 1
+        self.turns_elapsed += 1
        
-            
+        print(observations,reward, False)    
         return observations, reward, False
-
-    
-
 
 
 
@@ -599,8 +601,9 @@ m = Maze()
 m.display(debug=True)
 m.step(Step.DOWN)
 m.display(debug=True)
+m.step(Step.LEFT)
+m.display(debug=True)
 #print(m._find_empty_cells())
-print("buyaaa")
 # TODO:
 # Make sure the agent can step in different directions correctly
 # Make sure the rewards are correct
