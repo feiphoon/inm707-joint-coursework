@@ -2,6 +2,7 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
+from typing import List
 
 # from collections import namedtuple
 
@@ -77,7 +78,7 @@ class Maze:
         # Make a done state for Maze
         self.done = False
 
-    def _find_empty_cells(self):
+    def _find_empty_cells(self) -> List[tuple]:
         # Gives us two arrays of indices - first array
         # for row and second for column indices.
         # E.g. array([1, 3]), array([2, 4])
