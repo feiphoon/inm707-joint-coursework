@@ -2,7 +2,7 @@
 
 The maze environment is produced by the `Maze` class in `maze.py`. It uses [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm) to generate the walls and create a solvable maze each time.
 
-Provide the desired width and height (defaults to `5x5`), and it generates a maze that can take the following cell types. The result will have an entrance at the top and an exit at the bottom.
+Provide the desired size (defaults to `5x5`), and it generates a maze that can take the following cell types. The result will have an entrance at the top and an exit at the bottom.
 
 ```python
 @unique
@@ -13,6 +13,7 @@ class Cell(IntEnum):
     EXIT = 3
     UNTRAVERSED = 4
     ERROR = 5
+    AGENT = 9
 ```
 
 ```python
@@ -51,7 +52,7 @@ X X X O X
 Or:
 
 ```python
-m20 = Maze(20,20)
+m20 = Maze(20)
 m20.display()
 ```
 
