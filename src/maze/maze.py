@@ -61,7 +61,7 @@ class Maze:
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
-        self.time_elapsed = 0
+        self.turns_elapsed = 0
 
         self.maze = np.full(
             (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
@@ -591,12 +591,8 @@ class Maze:
         
         # update time
         self.turns_elapsed += 1
-        #TODO i am not sure here time_elapsed works
+
         # Verify termination state
-
-        if self.turns_elapsed == self.time_elapsed:
-            self.done = True
-
         if self.position_agent == self.position_exit:
             self.done = True
 
