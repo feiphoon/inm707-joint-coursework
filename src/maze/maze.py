@@ -529,23 +529,23 @@ class Maze:
         self.position_agent = self.position_entrance
 
         self.turns_elapsed = 0
-        # TODO: Calculate and return observations
+
         observations = self._calculate_observations()
         
         return observations
 
-        # TODO: Reset done state for Maze
+        self.done = False
+
 
     def _calculate_observations(self):
-        # TODO: calculate observations - abstraction out of .step()
-   
+        """This function helps construct the observations
+        by calculating the agent's position,so the agent
+        can decide on next the steps to take """
         relative_coordinates = tuple(map(operator.sub,self.position_exit, self.position_agent))
     
         surroundings = self.maze[ self.position_agent[0] -1: self.position_agent[0] +2,
                                      self.position_agent[1] -1: self.position_agent[1] +2]
 
-
-        
        # obs ={'relative_coordinates':relative_coordinates,
               # 'surroundings': surroundings}
 
@@ -557,7 +557,9 @@ class Maze:
     
 
     def step(self, action: Step)->(list, int, bool):
-        
+        """This function helps us calculate the position
+        of the agent ,the immediate rewards based on the
+        action and the observations """
         # At every timestep, the agent receives a negative reward
         reward = -1
         _bump = False
@@ -590,9 +592,20 @@ class Maze:
         
         # update time
         self.turns_elapsed += 1
-       
-        print(observations,reward, False)    
-        return observations, reward, False
+        #TODO i am not sure here time_elapsed works
+
+        #Verify termination state
+        
+        #self.done = False
+        
+        if self.turns_elapsed == self.time_elapsed:
+            done = True
+
+        if self.position_agent == self.position_exit:
+            done = True   
+
+
+        return observations, reward, self.done
 
 
 
