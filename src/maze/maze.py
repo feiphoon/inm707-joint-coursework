@@ -531,11 +531,10 @@ class Maze:
         self.turns_elapsed = 0
 
         observations = self._calculate_observations()
-        
-        return observations
 
         self.done = False
 
+        return observations
 
     def _calculate_observations(self):
         """This function helps construct the observations
@@ -593,17 +592,13 @@ class Maze:
         # update time
         self.turns_elapsed += 1
         #TODO i am not sure here time_elapsed works
+        # Verify termination state
 
-        #Verify termination state
-        
-        #self.done = False
-        
         if self.turns_elapsed == self.time_elapsed:
-            done = True
+            self.done = True
 
         if self.position_agent == self.position_exit:
-            done = True   
-
+            self.done = True
 
         return observations, reward, self.done
 
