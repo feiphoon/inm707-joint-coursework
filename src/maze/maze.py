@@ -613,7 +613,6 @@ class Maze:
 
 
 m = Maze(5)
-m.reset()
 m.display(debug=True)
 m.reset()
 m.display(debug=True)
