@@ -9,6 +9,11 @@ def fixture_default_maze():
 
 
 @pytest.fixture(scope="function")
+def fixture_default_maze_has_treasure():
+    yield Maze(has_treasure=True)
+
+
+@pytest.fixture(scope="function")
 def fixture_custom10_maze():
     yield Maze(10)
 
@@ -19,8 +24,9 @@ class TestCellIntEnum:
         assert Cell.WALL == 1
         assert Cell.ENTRANCE == 2
         assert Cell.EXIT == 3
-        assert Cell.UNTRAVERSED == 4
-        assert Cell.ERROR == 5
+        assert Cell.TREASURE == 4
+        assert Cell.UNTRAVERSED == 5
+        assert Cell.ERROR == 6
         assert Cell.AGENT == 9
 
 
@@ -37,6 +43,10 @@ class TestMaze:
         result = fixture_default_maze
         assert result.maze_width == 5
         assert result.maze_height == 5
+        assert result.has_treasure == False
+        assert result.treasure_left == 0
+        assert result.treasure_found == 0
+        assert len(result.treasure_map) == 0
         assert result.maze.dtype == "int"
         assert result.maze.shape == (5, 5)
         assert result.position_agent == result.position_entrance
@@ -51,6 +61,10 @@ class TestMaze:
         result = fixture_custom10_maze
         assert result.maze_width == 10
         assert result.maze_height == 10
+        assert result.has_treasure == False
+        assert result.treasure_left == 0
+        assert result.treasure_found == 0
+        assert len(result.treasure_map) == 0
         assert result.maze.dtype == "int"
         assert result.maze.shape == (10, 10)
         assert result.position_agent == result.position_entrance
@@ -60,6 +74,24 @@ class TestMaze:
         assert result.done == False
         # No walls are left untraversed
         assert np.all(result.maze[:, :] != Cell.UNTRAVERSED.value)
+
+
+class TestTreasure:
+    def test_default_maze_no_treasure(self, fixture_default_maze):
+        result = fixture_default_maze
+        assert result.has_treasure == False
+        assert len(result.treasure_map) == 0
+        assert result.treasure_left == 0
+        assert result.treasure_found == 0
+        assert np.all(result.maze[:, :] != Cell.TREASURE.value)
+
+    def test_default_maze_yes_treasure(self, fixture_default_maze_has_treasure):
+        result = fixture_default_maze_has_treasure
+        assert result.has_treasure == True
+        assert len(result.treasure_map) > 0
+        assert result.treasure_left != 0
+        assert result.treasure_found == 0
+        assert Cell.TREASURE.value in result.maze[:, :]
 
 
 class TestMazeCells:
