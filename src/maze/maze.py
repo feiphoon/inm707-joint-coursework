@@ -1,6 +1,6 @@
 import operator
 from enum import Enum, IntEnum, unique
-from random import randint, choice
+from random import randint, choice, sample
 import numpy as np
 from typing import List, Tuple
 from collections import namedtuple
@@ -31,8 +31,9 @@ class Cell(IntEnum):
     WALL = 1
     ENTRANCE = 2
     EXIT = 3
-    UNTRAVERSED = 4
-    ERROR = 5
+    TREASURE = 4
+    UNTRAVERSED = 5
+    ERROR = 6
     AGENT = 9
 
 
@@ -45,17 +46,21 @@ class Step(Enum):
     RIGHT = (0, 1)
 
 
-CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: "I", 3: "O", 4: "-", 5: "?", 9: "A"}
+CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: "I", 3: "O", 4: "*", 5: "-", 6: "?", 9: "A"}
 
 
 class Maze:
-    def __init__(self, size: int = 5) -> None:
+    def __init__(self, size: int = 5, has_treasure: bool = False) -> None:
         """
         Maze can only be square for now.
         """
         assert type(size) is int
         self.maze_width = size
         self.maze_height = size
+        self.has_treasure = has_treasure
+        self.treasure_found = 0
+        self.treasure_left = 0
+        self.treasure_map = None
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
@@ -517,6 +522,23 @@ class Maze:
         # self.display()
         self._create_exit()
         # self.display()
+        self._make_treasure_map()
+        self._place_treasure()
+
+    def _make_treasure_map(self) -> None:
+        hiding_places = []
+
+        if self.has_treasure:
+            viable_cells = self._find_empty_cells()
+            self.treasure_left = len(viable_cells) // 4
+            hiding_places = sample(viable_cells, k=self.treasure_left)
+
+        # Save the hiding places to the treasure map
+        self.treasure_map = hiding_places
+
+    def _place_treasure(self) -> None:
+        for _ in self.treasure_map:
+            self.maze[_] = Cell.TREASURE.value
 
     def display(self, debug: bool = False) -> None:
         show_maze = self.maze.copy()
@@ -547,6 +569,9 @@ class Maze:
 
         # Place position_agent back at position_entrance
         self.position_agent = self.position_entrance
+
+        if self.has_treasure:
+            self._place_treasure()
 
         # Reset the environment for another try
         self.turns_elapsed = 0
@@ -599,6 +624,13 @@ class Maze:
         if current_cell_type == Cell.EXIT.value:
             reward += self.size ** 2
 
+        if current_cell_type == Cell.TREASURE.value:
+            reward += 5
+            self.treasure_left -= 1
+            self.treasure_found += 1
+            # Pick up the treasure and restore the cell to empty
+            self.maze[self.position_agent] = Cell.EMPTY.value
+
         if _bump:
             reward -= 5
 
@@ -612,7 +644,11 @@ class Maze:
         return observation, reward, self.done
 
 
-m = Maze(5)
+m = Maze(10, has_treasure=True)
 m.display(debug=True)
 m.reset()
+m.display(debug=True)
+m.step(Step.DOWN)
+m.display(debug=True)
+m.step(Step.LEFT)
 m.display(debug=True)
