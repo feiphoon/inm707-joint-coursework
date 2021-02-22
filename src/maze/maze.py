@@ -23,8 +23,7 @@ from datetime import datetime
 # logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
 # print = logger.debug
 
-# TODO: Observations - maybe only neighbours
-#Observation = namedtuple("Observation", "distance_to_exit neighbours")
+Observation = namedtuple("Observation", ["dist_to_exit", "neighbours"])
 
 
 @unique
@@ -539,35 +538,28 @@ class Maze:
     def _calculate_observations(self):
         """This function helps construct the observations
         by calculating the agent's position,so the agent
-        can decide on next the steps to take """
-        relative_coordinates = tuple(map(operator.sub,self.position_exit, self.position_agent))
-    
-        surroundings = self.maze[ self.position_agent[0] -1: self.position_agent[0] +2,
-                                     self.position_agent[1] -1: self.position_agent[1] +2]
+        can decide on next the steps to take"""
+        dist_to_exit = tuple(map(operator.sub, self.position_exit, self.position_agent))
 
-       # obs ={'relative_coordinates':relative_coordinates,
-              # 'surroundings': surroundings}
+        neighbours = self.maze[
+            self.position_agent[0] - 1 : self.position_agent[0] + 2,
+            self.position_agent[1] - 1 : self.position_agent[1] + 2,
+        ]
 
-        #Observation = namedtuple('Observation',obs.keys())
-        Observation = namedtuple('Observation',["relative_coordinates","surroundings"])
-        
-        return Observation(relative_coordinates,surroundings)
-        
-    
+        return Observation(dist_to_exit, neighbours)
 
-    def step(self, action: Step)->(list, int, bool):
+    def step(self, action: Step) -> (list, int, bool):
         """This function helps us calculate the position
         of the agent ,the immediate rewards based on the
-        action and the observations """
+        action and the observations"""
         # At every timestep, the agent receives a negative reward
         reward = -1
         _bump = False
-        
+
         # calculate the next position based on the action
-        
+
         next_position = self._add_coord_tuples(self.position_agent, action)
 
-    
         # If the agent bumps into a wall, it doesn't move
         if self.maze[next_position] == Cell.WALL.value:
             _bump = True
@@ -580,15 +572,14 @@ class Maze:
             reward -= 20
 
         if current_cell_type == 3:
-            reward += self.size**2
-            
+            reward += self.size ** 2
+
         if _bump:
             reward -= 5
-        
+
         # calculate observations
         observations = self._calculate_observations()
 
-        
         # update time
         self.turns_elapsed += 1
 
@@ -599,7 +590,6 @@ class Maze:
         return observations, reward, self.done
 
 
-
 m = Maze()
 
 m.display(debug=True)
@@ -607,7 +597,7 @@ m.step(Step.DOWN)
 m.display(debug=True)
 m.step(Step.LEFT)
 m.display(debug=True)
-#print(m._find_empty_cells())
+# print(m._find_empty_cells())
 # TODO:
 # Make sure the agent can step in different directions correctly
 # Make sure the rewards are correct
