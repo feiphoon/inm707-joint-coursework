@@ -67,7 +67,7 @@ class Maze:
         )
 
         self._build_maze()
-
+        self._create_entrance()
         self.position_agent = self.position_entrance
 
         # Turns or timesteps
@@ -118,15 +118,35 @@ class Maze:
                     self.maze[i][j] = Cell.WALL.value
 
     def _create_entrance(self) -> None:
-        # Create entrance (top of maze)
+        """
+        Create the entrance at the top of the maze.
+
+        Originally this checked for the first instance in the uppermost
+        row, where the cell beneath it (row[1]) had a clear empty cell.
+        Now we want to randomise the entrance for each run of the maze,
+        so that the agent can start someplace different each time,
+        and to introduce a bit more of the exploration factor.
+        """
+        # Reset the current entrance position to wall
+        if self.position_entrance:
+            self.maze[self.position_entrance] = Cell.WALL.value
+
+        viable_entrances = []
+
         for i in range(0, self.maze_width):
-            # Check for first instance of the second row
+            # Check for all instances of the second row
             # (row[1]) having a clear empty cell.
-            # If it does, we will put the entrance above it, on the border.
             if self.maze[1][i] == Cell.EMPTY.value:
-                self.maze[0][i] = Cell.ENTRANCE.value
-                self.position_entrance = (0, i)
-                break
+                viable_entrances.append((0, i))
+
+        # Randomly select one of these candidates:
+        entrance_coord = choice(viable_entrances)
+
+        # Place the entrance in the maze,
+        # and register the new entrance coordinates
+        # to the class.
+        self.maze[entrance_coord] = Cell.ENTRANCE.value
+        self.position_entrance = entrance_coord
 
     def _create_exit(self) -> None:
         # Create exit (bottom of maze)
@@ -522,10 +542,6 @@ class Maze:
         if debug:
             print(vars(self))
 
-    def reset(self):
-        # Start entrance and the agent at the same place
-        self._create_entrance_exit()
-        # Update position_agent to position_entrance
     def reset(self) -> Observation:
         # Create the entrance. This is so we can randomise
         # the agent starting position a little.
@@ -598,10 +614,11 @@ class Maze:
         return observations, reward, self.done
 
 
-m = Maze()
 
+m = Maze(5)
+m.reset()
 m.display(debug=True)
-m.step(Step.DOWN)
+m.reset()
 m.display(debug=True)
 m.display(debug=True)
 # print(m._find_empty_cells())
