@@ -117,7 +117,7 @@ class Maze:
                 if self.maze[i][j] == Cell.UNTRAVERSED.value:
                     self.maze[i][j] = Cell.WALL.value
 
-    def _create_entrance_exit(self) -> None:
+    def _create_entrance(self) -> None:
         # Create entrance (top of maze)
         for i in range(0, self.maze_width):
             # Check for first instance of the second row
@@ -128,6 +128,7 @@ class Maze:
                 self.position_entrance = (0, i)
                 break
 
+    def _create_exit(self) -> None:
         # Create exit (bottom of maze)
         for i in range(self.maze_width - 1, 0, -1):
             # Check for first instance of the second last row
@@ -496,7 +497,7 @@ class Maze:
         # Convert them to walls
         self._fill_in_walls()
         # self.display()
-        self._create_entrance_exit()
+        self._create_exit()
         # self.display()
 
     def display(self, debug: bool = False) -> None:
@@ -525,8 +526,15 @@ class Maze:
         # Start entrance and the agent at the same place
         self._create_entrance_exit()
         # Update position_agent to position_entrance
+    def reset(self) -> Observation:
+        # Create the entrance. This is so we can randomise
+        # the agent starting position a little.
+        self._create_entrance()
+
+        # Place position_agent back at position_entrance
         self.position_agent = self.position_entrance
 
+        # Reset the environment for another try
         self.turns_elapsed = 0
 
         observations = self._calculate_observations()
@@ -595,7 +603,6 @@ m = Maze()
 m.display(debug=True)
 m.step(Step.DOWN)
 m.display(debug=True)
-m.step(Step.LEFT)
 m.display(debug=True)
 # print(m._find_empty_cells())
 # TODO:
