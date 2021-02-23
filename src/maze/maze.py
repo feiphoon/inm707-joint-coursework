@@ -2,13 +2,12 @@ import operator
 from enum import Enum, IntEnum, unique
 from random import randint, choice
 import numpy as np
-from typing import List
+from typing import List, Tuple
 from collections import namedtuple
 
-from datetime import datetime
-
+# from datetime import datetime
 # import logging
-
+# TODO: some syspath stuff to fix logging
 
 # dt_now = datetime.now()
 # dt_str = dt_now.strftime("%Y%m%d-%H%M%S")
@@ -60,17 +59,16 @@ class Maze:
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
-        self.turns_elapsed = 0
 
         self.maze = np.full(
             (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
         )
 
         self._build_maze()
-
+        self._create_entrance()
         self.position_agent = self.position_entrance
 
-        # Turns or timesteps
+        # Turns counter
         self.turns_elapsed = 0
         # logger.debug(self.display(debug=True))
 
@@ -117,17 +115,38 @@ class Maze:
                 if self.maze[i][j] == Cell.UNTRAVERSED.value:
                     self.maze[i][j] = Cell.WALL.value
 
-    def _create_entrance_exit(self) -> None:
-        # Create entrance (top of maze)
-        for i in range(0, self.maze_width):
-            # Check for first instance of the second row
-            # (row[1]) having a clear empty cell.
-            # If it does, we will put the entrance above it, on the border.
-            if self.maze[1][i] == Cell.EMPTY.value:
-                self.maze[0][i] = Cell.ENTRANCE.value
-                self.position_entrance = (0, i)
-                break
+    def _create_entrance(self) -> None:
+        """
+        Create the entrance at the top of the maze.
 
+        Originally this checked for the first instance in the uppermost
+        row, where the cell beneath it (row[1]) had a clear empty cell.
+        Now we want to randomise the entrance for each run of the maze,
+        so that the agent can start someplace different each time,
+        and to introduce a bit more of the exploration factor.
+        """
+        # Reset the current entrance position to wall
+        if self.position_entrance:
+            self.maze[self.position_entrance] = Cell.WALL.value
+
+        viable_entrances = []
+
+        for i in range(0, self.maze_width):
+            # Check for all instances of the second row
+            # (row[1]) having a clear empty cell.
+            if self.maze[1][i] == Cell.EMPTY.value:
+                viable_entrances.append((0, i))
+
+        # Randomly select one of these candidates:
+        entrance_coord = choice(viable_entrances)
+
+        # Place the entrance in the maze,
+        # and register the new entrance coordinates
+        # to the class.
+        self.maze[entrance_coord] = Cell.ENTRANCE.value
+        self.position_entrance = entrance_coord
+
+    def _create_exit(self) -> None:
         # Create exit (bottom of maze)
         for i in range(self.maze_width - 1, 0, -1):
             # Check for first instance of the second last row
@@ -496,7 +515,7 @@ class Maze:
         # Convert them to walls
         self._fill_in_walls()
         # self.display()
-        self._create_entrance_exit()
+        self._create_exit()
         # self.display()
 
     def display(self, debug: bool = False) -> None:
@@ -521,43 +540,49 @@ class Maze:
         if debug:
             print(vars(self))
 
-    def reset(self):
-        # Start entrance and the agent at the same place
-        self._create_entrance_exit()
-        # Update position_agent to position_entrance
+    def reset(self) -> Observation:
+        # Create the entrance. This is so we can randomise
+        # the agent starting position a little.
+        self._create_entrance()
+
+        # Place position_agent back at position_entrance
         self.position_agent = self.position_entrance
 
+        # Reset the environment for another try
         self.turns_elapsed = 0
-
-        observations = self._calculate_observations()
-
         self.done = False
 
-        return observations
+        observation = self._calculate_observation()
 
-    def _calculate_observations(self):
-        """This function helps construct the observations
-        by calculating the agent's position,so the agent
-        can decide on next the steps to take"""
+        return observation
+
+    def _calculate_observation(self) -> Observation:
+        """
+        This function helps construct the observations
+        by calculating the agent's distance to exit,
+        and its current neighbours.
+        """
         dist_to_exit = tuple(map(operator.sub, self.position_exit, self.position_agent))
 
         neighbours = self.maze[
-            self.position_agent[0] - 1 : self.position_agent[0] + 2,
-            self.position_agent[1] - 1 : self.position_agent[1] + 2,
+            self.position_agent[0] - 1 : self.position_agent[0] + 2,  # noqa E203
+            self.position_agent[1] - 1 : self.position_agent[1] + 2,  # noqa E203
         ]
 
         return Observation(dist_to_exit, neighbours)
 
-    def step(self, action: Step) -> (list, int, bool):
-        """This function helps us calculate the position
-        of the agent ,the immediate rewards based on the
-        action and the observations"""
-        # At every timestep, the agent receives a negative reward
+    def step(self, action: Step) -> Tuple[list, int, bool]:
+        """
+        This function helps us calculate the position
+        of the agent, the immediate rewards based on the
+        action and the observations.
+        """
+        # At every turn, the agent receives a negative reward
         reward = -1
         _bump = False
+        self.turns_elapsed += 1
 
-        # calculate the next position based on the action
-
+        # Calculate the next position based on the action
         next_position = self._add_coord_tuples(self.position_agent, action)
 
         # If the agent bumps into a wall, it doesn't move
@@ -566,52 +591,28 @@ class Maze:
         else:
             self.position_agent = next_position
 
-        # calculate reward
+        # Calculate reward
         current_cell_type = self.maze[self.position_agent]
         if current_cell_type == Cell.WALL.value:
             reward -= 20
 
-        if current_cell_type == 3:
+        if current_cell_type == Cell.EXIT.value:
             reward += self.size ** 2
 
         if _bump:
             reward -= 5
 
-        # calculate observations
-        observations = self._calculate_observations()
+        # Calculate observation
+        observation = self._calculate_observation()
 
-        # update time
-        self.turns_elapsed += 1
-
-        # Verify termination state
+        # Check termination state
         if self.position_agent == self.position_exit:
             self.done = True
 
-        return observations, reward, self.done
+        return observation, reward, self.done
 
 
-m = Maze()
-
+m = Maze(5)
 m.display(debug=True)
-m.step(Step.DOWN)
+m.reset()
 m.display(debug=True)
-m.step(Step.LEFT)
-m.display(debug=True)
-# print(m._find_empty_cells())
-# TODO:
-# Make sure the agent can step in different directions correctly
-# Make sure the rewards are correct
-# Make sure the done state is correct
-# Make sure that the timesteps elapsed is correct
-
-#  m.step(Step.UP)
-# m.display(debug=True)
-
-#  m.step(Step.DOWN)
-# m.display(debug=True)
-
-#  m.step(Step.LEFT)
-# m.display(debug=True)
-
-#  m.step(Step.RIGHT)
-# m.display(debug=True)

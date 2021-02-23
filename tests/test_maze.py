@@ -89,3 +89,34 @@ class TestMazeCells:
             result.maze[-1, :].tolist().count(Cell.WALL.value) == result.maze_height - 1
         )
         assert result.maze[-1, :].tolist().count(Cell.EXIT.value) == 1
+
+
+class TestMazeEntrance:
+    def test_default_maze_entrance_before_after_reset(self, fixture_default_maze):
+        # Given an initialised maze:
+        result = fixture_default_maze
+
+        # When we reset:
+        result.reset()
+
+        # Then we still get the same state in the top wall -
+        # apart from entrance MAY have a different position.
+        unique, *_ = np.unique(result.maze[0, :], return_counts=True)
+        assert len(unique) == len([Cell.WALL.value, Cell.ENTRANCE.value])
+        assert [Cell.WALL.value, Cell.ENTRANCE.value] in unique
+        assert (
+            result.maze[0, :].tolist().count(Cell.WALL.value) == result.maze_width - 1
+        )
+        assert result.maze[0, :].tolist().count(Cell.ENTRANCE.value) == 1
+
+    def test_default_maze_agent_before_after_reset(self, fixture_default_maze):
+        # Given an initialised maze:
+        result = fixture_default_maze
+        # And the agent is at the entrance:
+        assert result.position_agent == result.position_entrance
+
+        # When we reset:
+        result.reset()
+
+        # Then the agent and entrance positions are updated to be equal:
+        assert result.position_agent == result.position_entrance

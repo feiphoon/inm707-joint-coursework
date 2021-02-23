@@ -80,9 +80,9 @@ More details follow.
 
 ### `doctest`
 
-Run `doctest` on the docstring tests in `dungeon.py`.
+Run `doctest` on the docstring tests in `maze.py`.
 ```
-python -m doctest dungeon.py -v
+python -m doctest maze.py -v
 ```
 
 ### `pytest`
@@ -92,14 +92,14 @@ Run all `pytest` tests:
 pytest
 ```
 
-Run tests for a specific file, where `test_dungeon.py` is named to match the file you want to test, `dungeon.py`.
+Run tests for a specific file, where `test_maze.py` is named to match the file you want to test, `maze.py`.
 ```
-pytest tests/test_dungeon.py
+pytest tests/test_maze.py
 ```
 
 Verbose mode with `-v`, is always optional but gives you more information about test results.
 ```
-pytest -v tests/test_dungeon.py 
+pytest -v tests/test_maze.py 
 ```
 
 Run a set of tests based on the test name (so you should always name your tests well!).
@@ -112,17 +112,17 @@ pytest -v -k error
 
 Run a group of tests. You need to have applied some Test Classes:
 ```
-pytest tests/test_dungeon.py::TestBuildDungeon
+pytest tests/test_maze.py::TestBuildMaze
 ```
 
 You can run a specific method inside a Test Class too:
 ```
-pytest tests/test_dungeon.py::TestBuildDungeon::test_build_dungeon
+pytest tests/test_maze.py::TestBuildMaze::test_build_maze
 ```
 
 You can inspect how and in what order your fixtures are set up, by adding the `--setup-show` argument:
 ```
-pytest -v --setup-show tests/test_dungeon.py
+pytest -v --setup-show tests/test_maze.py
 ```
 
 
