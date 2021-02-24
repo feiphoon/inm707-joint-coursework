@@ -56,6 +56,7 @@ class Maze:
         assert type(size) is int
         self.maze_width = size
         self.maze_height = size
+        self.size = size
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
