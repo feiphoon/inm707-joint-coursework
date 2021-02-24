@@ -56,6 +56,7 @@ class Maze:
         assert type(size) is int
         self.maze_width = size
         self.maze_height = size
+        self.size = size
         self.position_agent = None
         self.position_entrance = None
         self.position_exit = None
@@ -612,7 +613,7 @@ class Maze:
         return observation, reward, self.done
 
 
-m = Maze(5)
-m.display(debug=True)
-m.reset()
-m.display(debug=True)
+# m = Maze(5)
+# m.display(debug=True)
+# m.reset()
+# m.display(debug=True)
