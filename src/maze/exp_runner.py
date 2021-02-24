@@ -1,5 +1,4 @@
 from maze import Maze
-from policies import random_policy
 
 
 def run_single_exp(envir, policy):
@@ -16,8 +15,3 @@ def run_single_exp(envir, policy):
 
     print(envir.turns_elapsed)
     return total_reward
-
-
-env = Maze(10)
-
-print(run_single_exp(env, random_policy))
