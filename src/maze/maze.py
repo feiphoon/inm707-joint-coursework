@@ -57,6 +57,7 @@ class Maze:
         assert type(size) is int
         self.maze_width = size
         self.maze_height = size
+        self.size = size
         self.has_treasure = has_treasure
         self.treasure_found = 0
         self.treasure_left = 0
@@ -644,11 +645,7 @@ class Maze:
         return observation, reward, self.done
 
 
-m = Maze(10, has_treasure=True)
-m.display(debug=True)
-m.reset()
-m.display(debug=True)
-m.step(Step.DOWN)
-m.display(debug=True)
-m.step(Step.LEFT)
-m.display(debug=True)
+# m = Maze(10, has_treasure=True)
+# m.display(debug=True)
+# m.reset()
+# m.display(debug=True)
