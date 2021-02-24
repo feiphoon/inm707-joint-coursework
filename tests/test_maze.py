@@ -43,6 +43,7 @@ class TestMaze:
         result = fixture_default_maze
         assert result.maze_width == 5
         assert result.maze_height == 5
+        assert result.size == 5
         assert result.has_treasure == False
         assert result.treasure_left == 0
         assert result.treasure_found == 0
@@ -61,6 +62,7 @@ class TestMaze:
         result = fixture_custom10_maze
         assert result.maze_width == 10
         assert result.maze_height == 10
+        assert result.size == 5
         assert result.has_treasure == False
         assert result.treasure_left == 0
         assert result.treasure_found == 0
