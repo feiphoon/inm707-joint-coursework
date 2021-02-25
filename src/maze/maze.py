@@ -587,8 +587,6 @@ class Maze:
         next_position = self._add_coord_tuples(self.position_agent, action)
 
         # If the agent bumps into a wall, it doesn't move
-        # IndexError: index -11 is out of bounds for axis 0 with size 10
-        print("hey", next_position)
         if self.maze[next_position] == Cell.WALL.value:
             _bump = True
         else:
