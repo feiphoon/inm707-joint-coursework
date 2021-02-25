@@ -1,5 +1,4 @@
 from maze import Maze
-from policies import random_policy
 
 
 def run_single_exp(envir, policy):
