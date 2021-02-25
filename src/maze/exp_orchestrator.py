@@ -1,6 +1,6 @@
 import numpy as np
 
-from policies import random_policy, basic_policy, intelligent_policy
+
 from exp_runner import run_single_exp
 from maze import Maze
 
