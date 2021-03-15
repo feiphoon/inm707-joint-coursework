@@ -99,7 +99,7 @@ pytest tests/test_maze.py
 
 Verbose mode with `-v`, is always optional but gives you more information about test results.
 ```
-pytest -v tests/test_maze.py 
+pytest -v tests/test_maze.py
 ```
 
 Run a set of tests based on the test name (so you should always name your tests well!).

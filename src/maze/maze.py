@@ -37,7 +37,6 @@ class Cell(IntEnum):
     AGENT = 9
 
 
-# TODO: Probably going to replace this later as Action
 @unique
 class Step(Enum):
     UP = (-1, 0)
@@ -46,7 +45,26 @@ class Step(Enum):
     RIGHT = (0, 1)
 
 
+IndexedStep = namedtuple("IndexedStep", "index delta_i delta_j")
+
+
+@unique
+class Action(Enum):
+    UP = IndexedStep(index=0, delta_i=-1, delta_j=0)
+    DOWN = IndexedStep(index=1, delta_i=1, delta_j=0)
+    LEFT = IndexedStep(index=2, delta_i=0, delta_j=-1)
+    RIGHT = IndexedStep(index=3, delta_i=0, delta_j=1)
+
+
 CELL_DISPLAY_DICT = {0: ".", 1: "X", 2: "I", 3: "O", 4: "*", 5: "-", 6: "?", 9: "A"}
+
+
+class Reward(Enum):
+    EMPTY = ("add", -1)
+    WALL = ("add", -5)
+    TREASURE = ("add", 5)
+    ENTRANCE = ("add", -5)
+    EXIT = ("power", 2)
 
 
 class Maze:
@@ -546,7 +564,7 @@ class Maze:
 
         # Place agent in show maze if it's been initialised
         if self.position_agent is not None:
-            show_maze[self.position_agent[0], self.position_agent[1]] = Cell.AGENT.value
+            show_maze[self.position_agent] = Cell.AGENT.value
 
         show_maze_repr = ""
 
@@ -597,12 +615,50 @@ class Maze:
 
         return Observation(dist_to_exit, neighbours)
 
+    def _calculate_reward(self, cell_value):
+        reward_tuple = Reward[Cell(cell_value).name].value
+        # print(Cell(cell_value), Reward[Cell(cell_value).name])
+        # print(cell_value, reward_tuple)
+        reward = None
+        if reward_tuple[0] == "power":
+            reward = self.size ** reward_tuple[1]
+        elif reward_tuple[0] == "add":
+            reward = reward_tuple[1]
+        # print("reward", reward)
+        return reward
+
     def step(self, action: Step) -> Tuple[list, int, bool]:
         """
         This function helps us calculate the position
         of the agent, the immediate rewards based on the
         action and the observations.
         """
+        next_position = (
+            self.position_agent[0] + action.value[0],
+            self.position_agent[1] + action.value[1],
+        )
+
+        # Modify the position of the agent.
+        # If next position in dungeon is an obstacle, bump is True and no Action.
+        # Otherwise agent moves to next_position.
+        _bump = False  # reset bump
+        # The following is if we hit an obstacle, we don't move.
+        if self.maze[next_position] == Cell.WALL.value:
+            _bump = True
+        else:
+            self.position_agent = next_position
+
+        # Calculate total reward.
+        # Get current cell value and calculate reward.
+        current_cell_value = self.maze[self.position_agent]
+
+        # Reward -1 for every timestep
+        reward = -1
+        if _bump:
+            reward += self._calculate_reward(Cell.WALL.value)
+        else:
+            reward += self._calculate_reward(current_cell_value)
+
         # At every turn, the agent receives a negative reward
         reward = -1
         _bump = False
@@ -617,23 +673,13 @@ class Maze:
         else:
             self.position_agent = next_position
 
-        # Calculate reward
-        current_cell_type = self.maze[self.position_agent]
-        if current_cell_type == Cell.WALL.value:
-            reward -= 20
-
-        if current_cell_type == Cell.EXIT.value:
-            reward += self.size ** 2
-
-        if current_cell_type == Cell.TREASURE.value:
-            reward += 5
+        # Log treasure pickups
+        # TODO: treasure an extra objective?
+        if self.maze[self.position_agent] == Cell.TREASURE.value:
             self.treasure_left -= 1
             self.treasure_found += 1
             # Pick up the treasure and restore the cell to empty
             self.maze[self.position_agent] = Cell.EMPTY.value
-
-        if _bump:
-            reward -= 5
 
         # Calculate observation
         observation = self._calculate_observation()
@@ -644,8 +690,10 @@ class Maze:
 
         return observation, reward, self.done
 
-
 # m = Maze(10, has_treasure=True)
 # m.display(debug=True)
 # m.reset()
+# m.step(Step.DOWN)
+# m.display(debug=True)
+# m.step(Step.LEFT)
 # m.display(debug=True)
