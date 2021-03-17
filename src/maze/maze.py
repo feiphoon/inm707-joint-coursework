@@ -627,15 +627,15 @@ class Maze:
         # print("reward", reward)
         return reward
 
-    def step(self, action: Step) -> Tuple[list, int, bool]:
+    def step(self, action: Action) -> Tuple[list, int, bool]:
         """
         This function helps us calculate the position
         of the agent, the immediate rewards based on the
         action and the observations.
         """
         next_position = (
-            self.position_agent[0] + action.value[0],
-            self.position_agent[1] + action.value[1],
+            self.position_agent[0] + action.value.delta_i,
+            self.position_agent[1] + action.value.delta_j,
         )
 
         # Modify the position of the agent.
@@ -665,7 +665,11 @@ class Maze:
         self.turns_elapsed += 1
 
         # Calculate the next position based on the action
-        next_position = self._add_coord_tuples(self.position_agent, action)
+        # Bug here - let's not change add coord tuples.
+        # Where step value == action index? ugh
+        next_position = self._add_coord_tuples(
+            self.position_agent, (action.value.delta_i, action.value.delta_j)
+        )
 
         # If the agent bumps into a wall, it doesn't move
         if self.maze[next_position] == Cell.WALL.value:
