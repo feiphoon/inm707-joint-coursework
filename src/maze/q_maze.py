@@ -1,6 +1,7 @@
 """
 Version of the Maze for Q-Learning.
-(Keeping the basic Maze clean for now)
+(Keeping the basic Maze clean for now).
+Based on Lab 3 code, but hoping to make some changes later.
 """
 import numpy as np
 from typing import Tuple
@@ -69,6 +70,7 @@ class QMaze(Maze):
 
                 # Don't penalize for second step, and don't increment timesteps.
                 # The following offsets the usual action of reward -=1 for timestep taken.
+                # Because we will commandeer step() to calculate the next step information.
                 _additional_reward += 1
                 self.time_elapsed -= 1
 
@@ -81,6 +83,6 @@ class QMaze(Maze):
         return self._get_agent_state()
 
 
-qm = QMaze(5)
-print(qm.reset())
+# qm = QMaze(5)
+# print(qm.reset())
 # qm.display(debug=True)
