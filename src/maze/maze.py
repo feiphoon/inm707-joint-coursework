@@ -34,6 +34,7 @@ from collections import namedtuple
 Observation = namedtuple("Observation", ["dist_to_exit", "neighbours"])
 
 
+# TODO: To make the treasure map stuff work, need to split EMPTY Cell state to TRAVERSED and UNTRAVERSED.
 @unique
 class Cell(IntEnum):
     EMPTY = 0
@@ -41,7 +42,7 @@ class Cell(IntEnum):
     ENTRANCE = 2
     EXIT = 3
     TREASURE = 4
-    UNTRAVERSED = 5
+    UNTERRAFORMED = 5
     ERROR = 6
     AGENT = 9
 
@@ -94,7 +95,7 @@ class Maze:
         self.position_exit = None
 
         self.maze = np.full(
-            (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
+            (self.maze_width, self.maze_height), Cell.UNTERRAFORMED.value, dtype=int
         )
 
         self._build_maze()
@@ -145,7 +146,7 @@ class Maze:
         # Fill in untraversed gaps
         for i in range(0, self.maze_height):
             for j in range(0, self.maze_width):
-                if self.maze[i][j] == Cell.UNTRAVERSED.value:
+                if self.maze[i][j] == Cell.UNTERRAFORMED.value:
                     self.maze[i][j] = Cell.WALL.value
 
     def _create_entrance(self) -> None:
@@ -241,7 +242,7 @@ class Maze:
             if rand_nb_coords[1] != 0:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
                     == Cell.EMPTY.value
                 ):
@@ -319,7 +320,7 @@ class Maze:
             if rand_nb_coords[0] != 0:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
                     == Cell.EMPTY.value
                 ):
@@ -397,7 +398,7 @@ class Maze:
             if rand_nb_coords[0] != self.maze_height - 1:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
                     == Cell.EMPTY.value
                 ):
@@ -469,7 +470,7 @@ class Maze:
             if rand_nb_coords[1] != self.maze_width - 1:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
                     == Cell.EMPTY.value
                 ):
@@ -684,7 +685,7 @@ class Maze:
         if self.maze[self.position_agent] == Cell.TREASURE.value:
             self.treasure_left -= 1
             self.treasure_found += 1
-            # Pick up the treasure and restore the cell to empty
+            # Pick up the treasure and reassign the cell to EMPTY
             self.maze[self.position_agent] = Cell.EMPTY.value
 
         # Check termination state
