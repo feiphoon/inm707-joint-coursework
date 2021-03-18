@@ -1,7 +1,8 @@
 """
-Structure based on Lab1 code, with Maze algorithm help from
+Structure based on INM707 Lab1 code by Dr Michael Garcia Ortiz, with Maze algorithm help from
 https://medium.com/swlh/fun-with-python-1-maze-generator-931639b4fb7e,
 but the latter had quite a few bugs and had to be rewritten.
+
 TODO: Add some additional logic so that if an action is chosen
 that brings the agent out of bounds to the Maze, it is
 blocked or prevented from doing so.
@@ -190,9 +191,10 @@ class Maze:
                 break
 
     def _build_maze(self) -> None:
-        """Following Randomised Prim's algorithm:
+        """
+        Using Randomised Prim's algorithm:
         https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
-        With help from:
+        With guidance from/Rewritten from:
         https://medium.com/swlh/fun-with-python-1-maze-generator-931639b4fb7e
         """
         # Pick starting coordinates to build maze.
@@ -568,6 +570,9 @@ class Maze:
             self.maze[_] = Cell.TREASURE.value
 
     def display(self, debug: bool = False) -> None:
+        """
+        Slightly modified from INM707 Lab1 code by Dr Michael Garcia Ortiz.
+        """
         show_maze = self.maze.copy()
 
         # Place agent in show maze if it's been initialised
