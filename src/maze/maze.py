@@ -623,7 +623,7 @@ class Maze:
 
         return Observation(dist_to_exit, neighbours)
 
-    def _calculate_reward(self, cell_value):
+    def _calculate_reward(self, cell_value: int) -> int:
         reward_tuple = Reward[Cell(cell_value).name].value
         # print(Cell(cell_value), Reward[Cell(cell_value).name])
         # print(cell_value, reward_tuple)
@@ -641,6 +641,7 @@ class Maze:
         of the agent, the immediate rewards based on the
         action and the observations.
         """
+        # Calculate the next position based on the action
         next_position = (
             self.position_agent[0] + action.value.delta_i,
             self.position_agent[1] + action.value.delta_j,
@@ -668,22 +669,10 @@ class Maze:
             reward += self._calculate_reward(current_cell_value)
 
         # At every turn, the agent receives a negative reward
-        reward = -1
-        _bump = False
         self.turns_elapsed += 1
 
-        # Calculate the next position based on the action
-        # Bug here - let's not change add coord tuples.
-        # Where step value == action index? ugh
-        next_position = self._add_coord_tuples(
-            self.position_agent, (action.value.delta_i, action.value.delta_j)
-        )
-
-        # If the agent bumps into a wall, it doesn't move
-        if self.maze[next_position] == Cell.WALL.value:
-            _bump = True
-        else:
-            self.position_agent = next_position
+        # Calculate observation
+        observation = self._calculate_observation()
 
         # Log treasure pickups
         # TODO: treasure an extra objective?
@@ -692,9 +681,6 @@ class Maze:
             self.treasure_found += 1
             # Pick up the treasure and restore the cell to empty
             self.maze[self.position_agent] = Cell.EMPTY.value
-
-        # Calculate observation
-        observation = self._calculate_observation()
 
         # Check termination state
         if self.position_agent == self.position_exit:
@@ -706,7 +692,7 @@ class Maze:
 # m = Maze(10, has_treasure=True)
 # m.display(debug=True)
 # m.reset()
-# m.step(Step.DOWN)
+# m.step(Action.DOWN)
 # m.display(debug=True)
-# m.step(Step.LEFT)
+# m.step(Action.LEFT)
 # m.display(debug=True)
