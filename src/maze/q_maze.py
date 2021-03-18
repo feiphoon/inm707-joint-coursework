@@ -28,7 +28,7 @@ class QMaze(Maze):
         """
         return self.coord_to_index_state[self.position_agent]
 
-    def step(self, action: Action) -> Tuple[Tuple, int, bool]:
+    def step(self, action: Action) -> Tuple[tuple, int, bool]:
         """
         We don't need the observations (a default requirement of basic RL) anymore,
         now we return a state, reward and done instead.
@@ -72,7 +72,7 @@ class QMaze(Maze):
                 # The following offsets the usual action of reward -=1 for timestep taken.
                 # Because we will commandeer step() to calculate the next step information.
                 _additional_reward += 1
-                self.time_elapsed -= 1
+                self.turns_elapsed -= 1
 
                 return state, reward + _additional_reward, done
 
