@@ -3,6 +3,9 @@ Version of the Maze for Q-Learning.
 (Keeping the basic Maze clean for now).
 Based on Lab 3 code, but hoping to make some changes later.
 """
+"""
+Structured using code from INM707 Lab3 by Dr Michael Garcia Ortiz.
+"""
 import numpy as np
 from typing import Tuple
 
@@ -84,5 +87,7 @@ class QMaze(Maze):
 
 
 # qm = QMaze(5)
-# print(qm.reset())
+# qm.reset()
+# qm.display(debug=True)
+# qm.step(Action.UP)
 # qm.display(debug=True)

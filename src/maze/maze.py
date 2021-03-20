@@ -1,7 +1,8 @@
 """
-Structure based on Lab1 code, with Maze algorithm help from
+Structure based on INM707 Lab1 code by Dr Michael Garcia Ortiz, with Maze algorithm help from
 https://medium.com/swlh/fun-with-python-1-maze-generator-931639b4fb7e,
 but the latter had quite a few bugs and had to be rewritten.
+
 TODO: Add some additional logic so that if an action is chosen
 that brings the agent out of bounds to the Maze, it is
 blocked or prevented from doing so.
@@ -33,6 +34,7 @@ from collections import namedtuple
 Observation = namedtuple("Observation", ["dist_to_exit", "neighbours"])
 
 
+# TODO: To make the treasure map stuff work, need to split EMPTY Cell state to TRAVERSED and UNTRAVERSED.
 @unique
 class Cell(IntEnum):
     EMPTY = 0
@@ -40,7 +42,7 @@ class Cell(IntEnum):
     ENTRANCE = 2
     EXIT = 3
     TREASURE = 4
-    UNTRAVERSED = 5
+    UNTERRAFORMED = 5
     ERROR = 6
     AGENT = 9
 
@@ -93,7 +95,7 @@ class Maze:
         self.position_exit = None
 
         self.maze = np.full(
-            (self.maze_width, self.maze_height), Cell.UNTRAVERSED.value, dtype=int
+            (self.maze_width, self.maze_height), Cell.UNTERRAFORMED.value, dtype=int
         )
 
         self._build_maze()
@@ -106,6 +108,9 @@ class Maze:
 
         # Make a done state for Maze
         self.done = False
+
+        # Store this so we can revert to it if an action takes us out of bounds.
+        self.last_observation = None
 
     def _find_empty_cells(self) -> List[tuple]:
         # Gives us two arrays of indices - first array
@@ -144,7 +149,7 @@ class Maze:
         # Fill in untraversed gaps
         for i in range(0, self.maze_height):
             for j in range(0, self.maze_width):
-                if self.maze[i][j] == Cell.UNTRAVERSED.value:
+                if self.maze[i][j] == Cell.UNTERRAFORMED.value:
                     self.maze[i][j] = Cell.WALL.value
 
     def _create_entrance(self) -> None:
@@ -190,9 +195,10 @@ class Maze:
                 break
 
     def _build_maze(self) -> None:
-        """Following Randomised Prim's algorithm:
+        """
+        Using Randomised Prim's algorithm:
         https://en.wikipedia.org/wiki/Maze_generation_algorithm#Randomized_Prim's_algorithm
-        With help from:
+        With guidance from/Rewritten from:
         https://medium.com/swlh/fun-with-python-1-maze-generator-931639b4fb7e
         """
         # Pick starting coordinates to build maze.
@@ -239,7 +245,7 @@ class Maze:
             if rand_nb_coords[1] != 0:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
                     == Cell.EMPTY.value
                 ):
@@ -317,7 +323,7 @@ class Maze:
             if rand_nb_coords[0] != 0:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
                     == Cell.EMPTY.value
                 ):
@@ -395,7 +401,7 @@ class Maze:
             if rand_nb_coords[0] != self.maze_height - 1:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.DOWN)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.UP)]
                     == Cell.EMPTY.value
                 ):
@@ -467,7 +473,7 @@ class Maze:
             if rand_nb_coords[1] != self.maze_width - 1:
                 if (
                     self.maze[self._add_coord_tuples(rand_nb_coords, Step.RIGHT)]
-                    == Cell.UNTRAVERSED.value
+                    == Cell.UNTERRAFORMED.value
                     and self.maze[self._add_coord_tuples(rand_nb_coords, Step.LEFT)]
                     == Cell.EMPTY.value
                 ):
@@ -568,6 +574,9 @@ class Maze:
             self.maze[_] = Cell.TREASURE.value
 
     def display(self, debug: bool = False) -> None:
+        """
+        Slightly modified from INM707 Lab1 code by Dr Michael Garcia Ortiz.
+        """
         show_maze = self.maze.copy()
 
         # Place agent in show maze if it's been initialised
@@ -605,6 +614,7 @@ class Maze:
         self.done = False
 
         observation = self._calculate_observation()
+        self.last_observation = observation
 
         return observation
 
@@ -647,6 +657,17 @@ class Maze:
             self.position_agent[1] + action.value.delta_j,
         )
 
+        # Solution for if an action walks the agent out of bounds.
+        # This means that the last observation is returned with no change,
+        # and no reward, and is not done.
+        if (next_position[0] < 0) or (next_position[0] > (self.maze_height - 1)):
+            print("Action will send agent out of vertical bounds, did nothing.")
+            return self.last_observation, 0, False
+
+        if (next_position[1] < 0) or next_position[1] > (self.maze_width - 1):
+            print("Action will send agent out of horizontal bounds, did nothing.")
+            return self.last_observation, 0, False
+
         # Modify the position of the agent.
         # If next position in dungeon is an obstacle, bump is True and no Action.
         # Otherwise agent moves to next_position.
@@ -673,13 +694,14 @@ class Maze:
 
         # Calculate observation
         observation = self._calculate_observation()
+        self.last_observation = observation
 
         # Log treasure pickups
         # TODO: treasure an extra objective?
         if self.maze[self.position_agent] == Cell.TREASURE.value:
             self.treasure_left -= 1
             self.treasure_found += 1
-            # Pick up the treasure and restore the cell to empty
+            # Pick up the treasure and reassign the cell to EMPTY
             self.maze[self.position_agent] = Cell.EMPTY.value
 
         # Check termination state
@@ -692,7 +714,7 @@ class Maze:
 # m = Maze(10, has_treasure=True)
 # m.display(debug=True)
 # m.reset()
-# m.step(Action.DOWN)
+# m.step(Action.UP)
 # m.display(debug=True)
 # m.step(Action.LEFT)
 # m.display(debug=True)
