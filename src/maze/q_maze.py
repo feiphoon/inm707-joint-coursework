@@ -87,5 +87,7 @@ class QMaze(Maze):
 
 
 # qm = QMaze(5)
-# print(qm.reset())
+# qm.reset()
+# qm.display(debug=True)
+# qm.step(Action.UP)
 # qm.display(debug=True)
