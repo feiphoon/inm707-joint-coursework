@@ -109,9 +109,6 @@ class Maze:
         # Make a done state for Maze
         self.done = False
 
-        # Store this so we can revert to it if an action takes us out of bounds.
-        self.last_observation = None
-
     def _find_empty_cells(self) -> List[tuple]:
         # Gives us two arrays of indices - first array
         # for row and second for column indices.
@@ -614,7 +611,6 @@ class Maze:
         self.done = False
 
         observation = self._calculate_observation()
-        self.last_observation = observation
 
         return observation
 
@@ -657,17 +653,6 @@ class Maze:
             self.position_agent[1] + action.value.delta_j,
         )
 
-        # # Solution for if an action walks the agent out of bounds.
-        # # This means that the last observation is returned with no change,
-        # # and no reward, and is not done.
-        # if (next_position[0] < 0) or (next_position[0] > (self.maze_height - 1)):
-        #     print("Action will send agent out of vertical bounds, did nothing.")
-        #     return self.last_observation, -20, False
-
-        # if (next_position[1] < 0) or next_position[1] > (self.maze_width - 1):
-        #     print("Action will send agent out of horizontal bounds, did nothing.")
-        #     return self.last_observation, -20, False
-
         # Modify the position of the agent.
         # If next position in dungeon is an obstacle, bump is True and no Action.
         # Otherwise agent moves to next_position.
@@ -694,7 +679,6 @@ class Maze:
 
         # Calculate observation
         observation = self._calculate_observation()
-        self.last_observation = observation
 
         # Log treasure pickups
         # TODO: treasure an extra objective?
