@@ -2,7 +2,6 @@ from typing import Tuple
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch import distributions
 
 
@@ -18,7 +17,6 @@ class ActorCritic(nn.Module):
         Note:
         - num_inputs = size of the observation space
         - num_outputs = no. of possible actions
-        - activation_func = activation function to use between layers. Using F.* format here.
         https://discuss.pytorch.org/t/whats-the-difference-between-nn-relu-vs-f-relu/27599
         """
         super(ActorCritic, self).__init__()
