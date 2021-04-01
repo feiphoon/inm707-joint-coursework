@@ -59,7 +59,7 @@ class ActorCritic(nn.Module):
         # Example
         # >>> m = Categorical(torch.tensor([ 0.01, 0.01, 0.97, 0.01 ]))
         # >>> m.sample()  # heavily in favour of tensor(2)
-        action_probability_dist = distributions.Categorical(self.actor(state))
+        action_probability_dist = distributions.Categorical(logits=self.actor(state))
         state_values = self.critic(state)
 
         # print("actor(state)", self.actor(state))
