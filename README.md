@@ -4,8 +4,6 @@
 ### Task1:
 Build an environment fit to be used for Task 1 and 2.
 
-Th
-
 Documentation is found [here](MAZE.md) in a separate markdown doc.
 
 ### Task 2:

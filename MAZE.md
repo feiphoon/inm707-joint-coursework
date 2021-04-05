@@ -83,9 +83,11 @@ X . X . . X X . X . . . . . X X . . . X
 X X X X X X X X X X X X X X X X X X O X
 ```
 
+Adding a `debug=True` parameter to the display function (`display(debug=True)`) will print all instance (`self`)variables.
+
 ## QMaze
 
 The `QMaze` class extends the `Maze` class and is found in `qmaze.py`.
 
-It has a modification on top of Maze whereby it will return a state rather than an observation,
+It has a modification on top of `Maze` whereby it will return a state rather than an observation,
 so it can be used to produce Q-values.
