@@ -31,7 +31,7 @@ class QMaze(Maze):
         """
         return self.coord_to_index_state[self.position_agent]
 
-    def step(self, action: Action) -> Tuple[tuple, int, bool]:
+    def step(self, action: Action) -> Tuple[int, int, bool]:
         """
         We don't need the observations (a default requirement of basic RL) anymore,
         now we return a state, reward and done instead.
