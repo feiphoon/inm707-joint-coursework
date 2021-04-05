@@ -8,7 +8,6 @@ from e_greedy_pol import eps_policy, E_greedy_policy
  a Markov decision process policy. The Q values update
  depending on the current stage of the  Agent and the  Agent
  actions taken based on the policy.
- 
  source https://en.wikipedia.org/wiki/State–action–reward–state–action"""
 
 

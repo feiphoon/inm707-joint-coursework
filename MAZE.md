@@ -87,7 +87,7 @@ Adding a `debug=True` parameter to the display function (`display(debug=True)`) 
 
 ## QMaze
 
-The `QMaze` class extends the `Maze` class and is found in `qmaze.py`.
+The `QMaze` class extends the `Maze` class and is found in `q_maze.py`.
 
 It has a modification on top of `Maze` whereby it will return a state rather than an observation,
 so it can be used to produce Q-values.
