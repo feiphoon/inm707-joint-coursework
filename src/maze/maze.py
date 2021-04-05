@@ -14,23 +14,6 @@ import numpy as np
 from typing import List, Tuple
 from collections import namedtuple
 
-# from datetime import datetime
-# import logging
-# TODO: some syspath stuff to fix logging
-
-# dt_now = datetime.now()
-# dt_str = dt_now.strftime("%Y%m%d-%H%M%S")
-# LOG_PATH = f"logs/{dt_str}.log"
-
-# with open(LOG_PATH, "w") as f:
-#     f.write(dt_now.strftime("%c"))
-
-# logging.basicConfig(filename=LOG_PATH, filemode="a", level=logging.DEBUG)
-# logger = logging.getLogger()
-
-# logger.addHandler(logging.FileHandler(LOG_PATH, "a"))
-# print = logger.debug
-
 Observation = namedtuple("Observation", ["dist_to_exit", "neighbours"])
 
 
