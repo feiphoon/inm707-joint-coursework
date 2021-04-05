@@ -1,5 +1,7 @@
-# Maze environment
+# Maze (& QMaze) environments
 
+
+## Maze
 The maze environment is produced by the `Maze` class in `maze.py`. It uses [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm) to generate the walls and create a solvable maze each time.
 
 Provide the desired size (defaults to `5x5`), and it generates a maze that can take the following cell types. The result will have an entrance at the top and an exit at the bottom.
@@ -11,8 +13,9 @@ class Cell(IntEnum):
     WALL = 1
     ENTRANCE = 2
     EXIT = 3
-    UNTRAVERSED = 4
-    ERROR = 5
+    TREASURE = 4
+    UNTERRAFORMED = 5
+    ERROR = 6
     AGENT = 9
 ```
 
@@ -42,11 +45,11 @@ m5.display()
 Output:
 
 ```bash
-X I X X X 
-X . X . X 
-X . X . X 
-X . . . X 
-X X X O X 
+X I X X X
+X . X . X
+X . X . X
+X . . . X
+X X X O X
 ```
 
 Or:
@@ -58,24 +61,31 @@ m20.display()
 
 Output:
 ```bash
-X I X X X X X X X X X X X X X X X X X X 
-X . . . X . X . . . X . . X X . X . X X 
-X X . X X . . . X X X . X X . . . . . X 
-X . . . X X . X X X X . . X X . X X X X 
-X . X . . . . . . . X . X X . . . . . X 
-X . X X . X . X X . . . . . . X X . X X 
-X . X . . X X X X . X . X X . X X X X X 
-X . X X . X . . . . X . . X . . X X . X 
-X . X . . X X . X . X . X X X X X . . X 
-X . X X . . X X X . X . . . . . . . X X 
-X . . X X . X X . . X . X X X . X X X X 
-X X X X X . X . . X X . X X . . . . . X 
-X . . . . . X X . X X X X X X . X . X X 
-X . X . X X X X . . . . . . X . X . . X 
-X X X X X X . X . X X . X . X X X X . X 
-X X . X . . . . . . X X X . . X X . . X 
-X . . . . X X . X . . . X X . . X X . X 
-X . X X . X X . X . X X X X X . . X X X 
-X . X . . X X . X . . . . . X X . . . X 
-X X X X X X X X X X X X X X X X X X O X 
+X I X X X X X X X X X X X X X X X X X X
+X . . . X . X . . . X . . X X . X . X X
+X X . X X . . . X X X . X X . . . . . X
+X . . . X X . X X X X . . X X . X X X X
+X . X . . . . . . . X . X X . . . . . X
+X . X X . X . X X . . . . . . X X . X X
+X . X . . X X X X . X . X X . X X X X X
+X . X X . X . . . . X . . X . . X X . X
+X . X . . X X . X . X . X X X X X . . X
+X . X X . . X X X . X . . . . . . . X X
+X . . X X . X X . . X . X X X . X X X X
+X X X X X . X . . X X . X X . . . . . X
+X . . . . . X X . X X X X X X . X . X X
+X . X . X X X X . . . . . . X . X . . X
+X X X X X X . X . X X . X . X X X X . X
+X X . X . . . . . . X X X . . X X . . X
+X . . . . X X . X . . . X X . . X X . X
+X . X X . X X . X . X X X X X . . X X X
+X . X . . X X . X . . . . . X X . . . X
+X X X X X X X X X X X X X X X X X X O X
 ```
+
+## QMaze
+
+The `QMaze` class extends the `Maze` class and is found in `qmaze.py`.
+
+It has a modification on top of Maze whereby it will return a state rather than an observation,
+so it can be used to produce Q-values.
