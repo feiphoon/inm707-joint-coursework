@@ -5,7 +5,7 @@ import numpy as np
 import random
 
 # from sarsa import Sarsa
-# from q_maze import QMaze, Action
+from q_maze import QMaze, Action
 
 
 class E_greedy_policy:
