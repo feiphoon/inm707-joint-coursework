@@ -1,0 +1,4 @@
+datetime:20210405-201001
+hyperparameters:num_episodes:100000
+results:min_reward:8.0, max_reward:89.0, reward_variance:13.324755157225214, mean_reward:23.47
+wall_time:36.48005843199999

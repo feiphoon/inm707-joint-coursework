@@ -1,0 +1,336 @@
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.001, hidden_layers:(32, 32)
+results:min_reward:21.3, max_reward:139.2, reward_variance:26.496033589954553, mean_reward:77.29800000000002, mean_actor_loss::0.11034903979808929, mean_critic_loss:2.3578196430739373, mean_entropy_loss::3.2299348449707033, mean_overall_loss:2.2442579316822346
+wall_time:120.04074515500179
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.001, hidden_layers:(64, 64)
+results:min_reward:15.1, max_reward:184.4, reward_variance:37.07680115651834, mean_reward:90.30400000000002, mean_actor_loss::0.09831048473428179, mean_critic_loss:1.9740386339361984, mean_entropy_loss::3.166618962287903, mean_overall_loss:1.8725499991586898
+wall_time:126.65153170299891
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.001, hidden_layers:(128, 128)
+results:min_reward:15.4, max_reward:202.4, reward_variance:35.883354135309034, mean_reward:99.63600000000001, mean_actor_loss::0.10236293252928909, mean_critic_loss:1.819860874202171, mean_entropy_loss::3.1372220420837404, mean_overall_loss:1.7143505113069666
+wall_time:129.78630696300024
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.002, hidden_layers:(32, 32)
+results:min_reward:18.5, max_reward:205.1, reward_variance:43.213831119214596, mean_reward:95.74, mean_actor_loss::0.11038184957677025, mean_critic_loss:1.9183033384934387, mean_entropy_loss::3.1587304306030273, mean_overall_loss:1.8047618829886312
+wall_time:134.3010969499992
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.002, hidden_layers:(64, 64)
+results:min_reward:17.0, max_reward:178.5, reward_variance:35.383021295530995, mean_reward:92.79799999999999, mean_actor_loss::0.11334867179215166, mean_critic_loss:1.8397202366194338, mean_entropy_loss::3.0813433074951173, mean_overall_loss:1.7232583645414212
+wall_time:130.13781459500024
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.002, hidden_layers:(128, 128)
+results:min_reward:20.0, max_reward:195.4, reward_variance:35.79443113111312, mean_reward:112.43, mean_actor_loss::0.11052135360128296, mean_critic_loss:1.649355182796894, mean_entropy_loss::3.10217755317688, mean_overall_loss:1.535744555592246
+wall_time:128.60634406900135
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.003, hidden_layers:(32, 32)
+results:min_reward:22.6, max_reward:164.6, reward_variance:30.845879400659012, mean_reward:99.382, mean_actor_loss::0.10727494620961651, mean_critic_loss:1.7214773041053892, mean_entropy_loss::3.1067702198028564, mean_overall_loss:1.6110684438785188
+wall_time:123.94913506699959
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.003, hidden_layers:(64, 64)
+results:min_reward:19.7, max_reward:238.1, reward_variance:46.75446079252759, mean_reward:123.014, mean_actor_loss::0.09426889308683185, mean_critic_loss:1.4694943523681432, mean_entropy_loss::3.0946322965621946, mean_overall_loss:1.372123906336131
+wall_time:133.25323136000225
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.003, hidden_layers:(128, 128)
+results:min_reward:22.4, max_reward:225.7, reward_variance:44.42196848407328, mean_reward:124.35400000000001, mean_actor_loss::0.09557664807290257, mean_critic_loss:1.4429198925277753, mean_entropy_loss::3.0449431419372557, mean_overall_loss:1.3442828716795077
+wall_time:135.09335602599822
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.001, hidden_layers:(32, 32)
+results:min_reward:18.8, max_reward:193.6, reward_variance:31.018369783081766, mean_reward:90.256, mean_actor_loss::0.12189841526230911, mean_critic_loss:2.0033006053386884, mean_entropy_loss::3.1804019236564636, mean_overall_loss:1.8782212153167988
+wall_time:242.83259201499823
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.001, hidden_layers:(64, 64)
+results:min_reward:14.0, max_reward:163.8, reward_variance:27.27925253741385, mean_reward:96.691, mean_actor_loss::0.11231783261925012, mean_critic_loss:1.7726706592750758, mean_entropy_loss::3.1547311091423036, mean_overall_loss:1.6572016457402905
+wall_time:252.9423227249972
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.001, hidden_layers:(128, 128)
+results:min_reward:14.5, max_reward:295.2, reward_variance:40.436986472782564, mean_reward:107.28500000000003, mean_actor_loss::0.11130073366294384, mean_critic_loss:1.6432235309163659, mean_entropy_loss::3.1226785588264465, mean_overall_loss:1.5287933609194995
+wall_time:253.78045702999952
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.002, hidden_layers:(32, 32)
+results:min_reward:17.7, max_reward:191.1, reward_variance:34.10828937369917, mean_reward:101.38600000000002, mean_actor_loss::0.11188652475768418, mean_critic_loss:1.665012655710857, mean_entropy_loss::3.1297246336936952, mean_overall_loss:1.5499996040924569
+wall_time:253.22843372200077
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.002, hidden_layers:(64, 64)
+results:min_reward:14.7, max_reward:186.8, reward_variance:30.85739216136062, mean_reward:100.493, mean_actor_loss::0.11536488527029914, mean_critic_loss:1.648498068179802, mean_entropy_loss::3.1032656145095827, mean_overall_loss:1.530033521724801
+wall_time:250.2678027999973
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.002, hidden_layers:(128, 128)
+results:min_reward:20.1, max_reward:211.2, reward_variance:37.82784121516849, mean_reward:115.37700000000001, mean_actor_loss::0.1068565613528387, mean_critic_loss:1.460964258518916, mean_entropy_loss::3.0391717028617857, mean_overall_loss:1.351038666836056
+wall_time:258.68678472800093
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.003, hidden_layers:(32, 32)
+results:min_reward:23.5, max_reward:272.3, reward_variance:39.390716812467375, mean_reward:105.777, mean_actor_loss::0.11509736324009077, mean_critic_loss:1.624820674703456, mean_entropy_loss::3.07632159948349, mean_overall_loss:1.5066296689499927
+wall_time:258.8543470329969
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.003, hidden_layers:(64, 64)
+results:min_reward:14.8, max_reward:228.6, reward_variance:38.00534436102375, mean_reward:109.06, mean_actor_loss::0.1069086133091348, mean_critic_loss:1.4736034866106928, mean_entropy_loss::3.0353297138214113, mean_overall_loss:1.3636263501549606
+wall_time:253.050133069999
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:6, num_episodes:100000, learning_rate:0.003, hidden_layers:(128, 128)
+results:min_reward:27.5, max_reward:250.0, reward_variance:41.70476203025261, mean_reward:110.56799999999997, mean_actor_loss::0.09955028920600803, mean_critic_loss:1.3565058926283955, mean_entropy_loss::3.0165850853919984, mean_overall_loss:1.2539466818617366
+wall_time:278.8607472040021
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.001, hidden_layers:(32, 32)
+results:min_reward:18.3, max_reward:202.3, reward_variance:44.65166160402096, mean_reward:104.354, mean_actor_loss::0.04566574033398397, mean_critic_loss:1.7363292832846287, mean_entropy_loss::3.1664229965209962, mean_overall_loss:1.6874943099459168
+wall_time:169.73609056200075
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.001, hidden_layers:(64, 64)
+results:min_reward:17.8, max_reward:203.6, reward_variance:44.7534812500659, mean_reward:115.74600000000001, mean_actor_loss::0.04680343307504475, mean_critic_loss:1.4385035613445099, mean_entropy_loss::3.1433769512176513, mean_overall_loss:1.3885629396258155
+wall_time:173.33070284100177
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.001, hidden_layers:(128, 128)
+results:min_reward:25.3, max_reward:242.0, reward_variance:47.56804225527891, mean_reward:131.766, mean_actor_loss::0.05354418766363297, mean_critic_loss:1.32976106164839, mean_entropy_loss::3.1066183757781984, mean_overall_loss:1.27310231590271
+wall_time:162.32176655500007
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.002, hidden_layers:(32, 32)
+results:min_reward:17.7, max_reward:264.3, reward_variance:46.276828283710195, mean_reward:121.65800000000002, mean_actor_loss::0.05531201557117761, mean_critic_loss:1.3739335173884464, mean_entropy_loss::3.1187645101547243, mean_overall_loss:1.3154936448691994
+wall_time:158.13332479400196
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.002, hidden_layers:(64, 64)
+results:min_reward:22.6, max_reward:230.9, reward_variance:46.54065856861074, mean_reward:136.27, mean_actor_loss::0.05677228244382441, mean_critic_loss:1.219290187052195, mean_entropy_loss::3.1072953128814698, mean_overall_loss:1.1594215419017944
+wall_time:166.17036283299967
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.002, hidden_layers:(128, 128)
+results:min_reward:30.9, max_reward:233.1, reward_variance:47.804242656902325, mean_reward:141.172, mean_actor_loss::0.05525736269652021, mean_critic_loss:1.1292745909075048, mean_entropy_loss::3.0364836692810058, mean_overall_loss:1.0709489759836346
+wall_time:164.4342124750001
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.003, hidden_layers:(32, 32)
+results:min_reward:23.0, max_reward:223.4, reward_variance:44.0145189227373, mean_reward:123.618, mean_actor_loss::0.05716525102515109, mean_critic_loss:1.2792056575108588, mean_entropy_loss::3.083135461807251, mean_overall_loss:1.218945985699154
+wall_time:160.86469976199805
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.003, hidden_layers:(64, 64)
+results:min_reward:29.1, max_reward:293.4, reward_variance:60.918411141460346, mean_reward:151.37199999999999, mean_actor_loss::0.05159168484526149, mean_critic_loss:1.0962080182852834, mean_entropy_loss::3.029677639007568, mean_overall_loss:1.041544624594471
+wall_time:169.2124729870011
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:50000, learning_rate:0.003, hidden_layers:(128, 128)
+results:min_reward:28.1, max_reward:316.9, reward_variance:59.29466164841486, mean_reward:141.04999999999998, mean_actor_loss::0.04918450130084602, mean_critic_loss:1.0260570486660814, mean_entropy_loss::2.9843463706970215, mean_overall_loss:0.973852010248159
+wall_time:166.00431449700045
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.001, hidden_layers:(32, 32)
+results:min_reward:17.9, max_reward:201.0, reward_variance:37.08942397773252, mean_reward:111.773, mean_actor_loss::0.06618557748638491, mean_critic_loss:1.4682042155331851, mean_entropy_loss::3.1471598505973817, mean_overall_loss:1.3988795285965432
+wall_time:309.45103032399857
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.001, hidden_layers:(64, 64)
+results:min_reward:16.0, max_reward:302.9, reward_variance:45.15003694350648, mean_reward:136.358, mean_actor_loss::0.05767223890930456, mean_critic_loss:1.1467526544158202, mean_entropy_loss::3.1252109098434446, mean_overall_loss:1.085959206678241
+wall_time:326.5587803439994
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.001, hidden_layers:(128, 128)
+results:min_reward:21.8, max_reward:257.2, reward_variance:47.147075105461205, mean_reward:142.047, mean_actor_loss::0.06050946716537409, mean_critic_loss:1.1089488076713343, mean_entropy_loss::3.095934200286865, mean_overall_loss:1.0453471843408944
+wall_time:324.42294329300057
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.002, hidden_layers:(32, 32)
+results:min_reward:18.3, max_reward:210.2, reward_variance:39.18021521125171, mean_reward:116.25599999999999, mean_actor_loss::0.0704832602387797, mean_critic_loss:1.282535052050317, mean_entropy_loss::3.0732166266441343, mean_overall_loss:1.2089702855278097
+wall_time:316.92300730900024
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.002, hidden_layers:(64, 64)
+results:min_reward:25.4, max_reward:278.8, reward_variance:40.58760456099867, mean_reward:138.866, mean_actor_loss::0.06535228649199797, mean_critic_loss:1.0969560306257569, mean_entropy_loss::3.0582927227020265, mean_overall_loss:1.0285345857477748
+wall_time:319.7901924079997
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.002, hidden_layers:(128, 128)
+results:min_reward:29.7, max_reward:349.5, reward_variance:53.722239342752644, mean_reward:141.94, mean_actor_loss::0.05723842888364286, mean_critic_loss:0.9618428446806087, mean_entropy_loss::3.041727774143219, mean_overall_loss:0.901568016875477
+wall_time:323.0562374000001
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.003, hidden_layers:(32, 32)
+results:min_reward:25.2, max_reward:227.2, reward_variance:42.86297381190437, mean_reward:120.774, mean_actor_loss::0.07089708640424637, mean_critic_loss:1.211906139619468, mean_entropy_loss::3.0654251980781555, mean_overall_loss:1.1379480268577462
+wall_time:313.8340018259987
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.003, hidden_layers:(64, 64)
+results:min_reward:27.5, max_reward:337.5, reward_variance:53.402862273477446, mean_reward:138.399, mean_actor_loss::0.06103096332654319, mean_critic_loss:1.0158809326976785, mean_entropy_loss::3.0313023018836973, mean_overall_loss:0.9518210805944458
+wall_time:325.2252113609975
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:12, num_episodes:100000, learning_rate:0.003, hidden_layers:(128, 128)
+results:min_reward:28.1, max_reward:278.8, reward_variance:51.516151748747696, mean_reward:146.047, mean_actor_loss::0.050682072726267326, mean_critic_loss:0.8643922295695942, mean_entropy_loss::2.964168748855591, mean_overall_loss:0.8107114847167628
+wall_time:325.4860979180012
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.001, hidden_layers:(32, 32)
+results:min_reward:18.2, max_reward:216.6, reward_variance:51.806140524073015, mean_reward:120.598, mean_actor_loss:0.004068284322569991, mean_critic_loss:1.3671570294662845, mean_entropy_loss::3.153905038833618, mean_overall_loss:1.3680718582901872
+wall_time:212.52028243099994
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.001, hidden_layers:(64, 64)
+results:min_reward:17.5, max_reward:274.0, reward_variance:58.67732291098496, mean_reward:152.62400000000002, mean_actor_loss::0.003994675546963549, mean_critic_loss:1.083331480824249, mean_entropy_loss::3.1234163999557496, mean_overall_loss:1.0762070186273893
+wall_time:220.09070341799816
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.001, hidden_layers:(128, 128)
+results:min_reward:18.7, max_reward:239.8, reward_variance:55.46377488054703, mean_reward:151.126, mean_actor_loss::0.010910021635748883, mean_critic_loss:0.9874515411159024, mean_entropy_loss::3.095780029296875, mean_overall_loss:0.9734419247829356
+wall_time:221.72830103399974
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.002, hidden_layers:(32, 32)
+results:min_reward:19.4, max_reward:279.8, reward_variance:54.46142032668631, mean_reward:139.036, mean_actor_loss::0.01314638237515901, mean_critic_loss:1.0876326346052578, mean_entropy_loss::3.091270842552185, mean_overall_loss:1.0713853581718635
+wall_time:215.65490534399942
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.002, hidden_layers:(64, 64)
+results:min_reward:22.6, max_reward:293.2, reward_variance:59.59958053543665, mean_reward:158.01999999999998, mean_actor_loss::0.014852432873168255, mean_critic_loss:0.8688734670394566, mean_entropy_loss::3.0569735956192017, mean_overall_loss:0.8509488901956939
+wall_time:222.7384635039998
+
+==================================
+
+==================================
+datetime:20210405-225734
+hyperparameters:num_env:24, num_episodes:50000, learning_rate:0.002, hidden_layers:(128, 128)
+results:min_reward:19.8, max_reward:357.4, reward_variance:75.39605177991749, mean_reward:168.576, mean_actor_loss::0.013595097901926647, mean_critic_loss:0.7983457105392358, mean_entropy_loss::3.053404941558838, mean_overall_loss:0.7816821121304296
+wall_time:233.4574359340004
+
+==================================
