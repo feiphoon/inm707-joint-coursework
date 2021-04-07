@@ -6,10 +6,10 @@ Based on Lab 3 code, but hoping to make some changes later.
 """
 Structured using code from INM707 Lab3 by Dr Michael Garcia Ortiz.
 """
-import numpy as np
-from typing import Tuple
+import numpy as np  # noqa E402
+from typing import Tuple  # noqa E402
 
-from maze import Maze, Action
+from maze import Maze, Action  # noqa E402
 
 
 class QMaze(Maze):
