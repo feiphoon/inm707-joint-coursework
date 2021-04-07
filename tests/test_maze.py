@@ -44,17 +44,17 @@ class TestMaze:
         assert result.maze_width == 5
         assert result.maze_height == 5
         assert result.size == 5
-        assert result.has_treasure == False
+        assert result.has_treasure is False
         assert result.treasure_left == 0
         assert result.treasure_found == 0
         assert len(result.treasure_map) == 0
         assert result.maze.dtype == "int"
         assert result.maze.shape == (5, 5)
         assert result.position_agent == result.position_entrance
-        assert result.position_entrance != None
-        assert result.position_exit != None
+        assert result.position_entrance is not None
+        assert result.position_exit is not None
         assert result.turns_elapsed == 0
-        assert result.done == False
+        assert result.done is False
         # No walls are left unterraformed
         assert np.all(result.maze[:, :] != Cell.UNTERRAFORMED.value)
 
@@ -63,17 +63,17 @@ class TestMaze:
         assert result.maze_width == 10
         assert result.maze_height == 10
         assert result.size == 10
-        assert result.has_treasure == False
+        assert result.has_treasure is False
         assert result.treasure_left == 0
         assert result.treasure_found == 0
         assert len(result.treasure_map) == 0
         assert result.maze.dtype == "int"
         assert result.maze.shape == (10, 10)
         assert result.position_agent == result.position_entrance
-        assert result.position_entrance != None
-        assert result.position_exit != None
+        assert result.position_entrance is not None
+        assert result.position_exit is not None
         assert result.turns_elapsed == 0
-        assert result.done == False
+        assert result.done is False
         # No walls are left unterraformed
         assert np.all(result.maze[:, :] != Cell.UNTERRAFORMED.value)
 
@@ -81,7 +81,7 @@ class TestMaze:
 class TestTreasure:
     def test_default_maze_no_treasure(self, fixture_default_maze):
         result = fixture_default_maze
-        assert result.has_treasure == False
+        assert result.has_treasure is False
         assert len(result.treasure_map) == 0
         assert result.treasure_left == 0
         assert result.treasure_found == 0
@@ -89,7 +89,7 @@ class TestTreasure:
 
     def test_default_maze_yes_treasure(self, fixture_default_maze_has_treasure):
         result = fixture_default_maze_has_treasure
-        assert result.has_treasure == True
+        assert result.has_treasure is True
         assert len(result.treasure_map) > 0
         assert result.treasure_left != 0
         assert result.treasure_found == 0
