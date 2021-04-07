@@ -3,7 +3,7 @@ from invoke import task
 
 @task
 def test(c):
-    c.run("pytest -v --doctest-modules", pty=True)
+    c.run("pytest -v --doctest-modules --import-mode=append", pty=True)
 
 
 @task
