@@ -1,7 +1,8 @@
 import numpy as np
 
 from exp_runner import run_single_exp
-from maze import Maze
+
+# from maze import Maze
 
 
 def run_experiments(env, policy, num_exp):
