@@ -15,7 +15,7 @@ def fixture_default_maze_has_treasure():
 
 @pytest.fixture(scope="function")
 def fixture_custom10_maze():
-    yield Maze(10)
+    yield Maze(size=10)
 
 
 class TestCellIntEnum:
@@ -25,7 +25,7 @@ class TestCellIntEnum:
         assert Cell.ENTRANCE == 2
         assert Cell.EXIT == 3
         assert Cell.TREASURE == 4
-        assert Cell.UNTRAVERSED == 5
+        assert Cell.UNTERRAFORMED == 5
         assert Cell.ERROR == 6
         assert Cell.AGENT == 9
 
@@ -55,14 +55,14 @@ class TestMaze:
         assert result.position_exit != None
         assert result.turns_elapsed == 0
         assert result.done == False
-        # No walls are left untraversed
-        assert np.all(result.maze[:, :] != Cell.UNTRAVERSED.value)
+        # No walls are left unterraformed
+        assert np.all(result.maze[:, :] != Cell.UNTERRAFORMED.value)
 
     def test_custom_maze(self, fixture_custom10_maze):
         result = fixture_custom10_maze
         assert result.maze_width == 10
         assert result.maze_height == 10
-        assert result.size == 5
+        assert result.size == 10
         assert result.has_treasure == False
         assert result.treasure_left == 0
         assert result.treasure_found == 0
@@ -74,8 +74,8 @@ class TestMaze:
         assert result.position_exit != None
         assert result.turns_elapsed == 0
         assert result.done == False
-        # No walls are left untraversed
-        assert np.all(result.maze[:, :] != Cell.UNTRAVERSED.value)
+        # No walls are left unterraformed
+        assert np.all(result.maze[:, :] != Cell.UNTERRAFORMED.value)
 
 
 class TestTreasure:
@@ -104,20 +104,19 @@ class TestMazeCells:
 
     def test_default_maze_walls_top(self, fixture_default_maze):
         result = fixture_default_maze
-        # This top wall will have 1 entrance
-        unique, *_ = np.unique(result.maze[0, :], return_counts=True)
-        assert len(unique) == len([Cell.WALL.value, Cell.ENTRANCE.value])
-        assert [Cell.WALL.value, Cell.ENTRANCE.value] in unique
-        assert (
-            result.maze[0, :].tolist().count(Cell.WALL.value) == result.maze_width - 1
+        # This row 1 will have 1 entrance
+        unique, *_ = np.unique(result.maze[1, :], return_counts=True)
+        assert len(unique) == len(
+            [Cell.EMPTY.value, Cell.WALL.value, Cell.ENTRANCE.value]
         )
-        assert result.maze[0, :].tolist().count(Cell.ENTRANCE.value) == 1
+        assert [Cell.EMPTY.value, Cell.WALL.value, Cell.ENTRANCE.value] in unique
+        assert result.maze[1, :].tolist().count(Cell.ENTRANCE.value) == 1
 
     def test_default_maze_walls_bottom(self, fixture_default_maze):
         result = fixture_default_maze
-        # This top wall will have 1 exit
+        # This bottom wall will have 1 exit
         unique, *_ = np.unique(result.maze[-1, :], return_counts=True)
-        assert len(unique) == len([Cell.WALL.value, Cell.ENTRANCE.value])
+        assert len(unique) == len([Cell.WALL.value, Cell.EXIT.value])
         assert [Cell.WALL.value, Cell.EXIT.value] in unique
         assert (
             result.maze[-1, :].tolist().count(Cell.WALL.value) == result.maze_height - 1
@@ -133,15 +132,14 @@ class TestMazeEntrance:
         # When we reset:
         result.reset()
 
-        # Then we still get the same state in the top wall -
+        # Then we still get the same state in the row 1 wall -
         # apart from entrance MAY have a different position.
-        unique, *_ = np.unique(result.maze[0, :], return_counts=True)
-        assert len(unique) == len([Cell.WALL.value, Cell.ENTRANCE.value])
-        assert [Cell.WALL.value, Cell.ENTRANCE.value] in unique
-        assert (
-            result.maze[0, :].tolist().count(Cell.WALL.value) == result.maze_width - 1
+        unique, *_ = np.unique(result.maze[1, :], return_counts=True)
+        assert len(unique) == len(
+            [Cell.WALL.value, Cell.EMPTY.value, Cell.ENTRANCE.value]
         )
-        assert result.maze[0, :].tolist().count(Cell.ENTRANCE.value) == 1
+        assert [Cell.WALL.value, Cell.EMPTY.value, Cell.ENTRANCE.value] in unique
+        assert result.maze[1, :].tolist().count(Cell.ENTRANCE.value) == 1
 
     def test_default_maze_agent_before_after_reset(self, fixture_default_maze):
         # Given an initialised maze:
