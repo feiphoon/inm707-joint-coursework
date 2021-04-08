@@ -45,10 +45,10 @@ m5.display()
 Output:
 
 ```bash
-X I X X X
-X . X . X
-X . X . X
+X X X X X
+X . X I X
 X . . . X
+X . X . X
 X X X O X
 ```
 
@@ -61,25 +61,25 @@ m20.display()
 
 Output:
 ```bash
-X I X X X X X X X X X X X X X X X X X X
-X . . . X . X . . . X . . X X . X . X X
-X X . X X . . . X X X . X X . . . . . X
-X . . . X X . X X X X . . X X . X X X X
-X . X . . . . . . . X . X X . . . . . X
-X . X X . X . X X . . . . . . X X . X X
-X . X . . X X X X . X . X X . X X X X X
-X . X X . X . . . . X . . X . . X X . X
-X . X . . X X . X . X . X X X X X . . X
-X . X X . . X X X . X . . . . . . . X X
-X . . X X . X X . . X . X X X . X X X X
-X X X X X . X . . X X . X X . . . . . X
-X . . . . . X X . X X X X X X . X . X X
-X . X . X X X X . . . . . . X . X . . X
-X X X X X X . X . X X . X . X X X X . X
-X X . X . . . . . . X X X . . X X . . X
-X . . . . X X . X . . . X X . . X X . X
-X . X X . X X . X . X X X X X . . X X X
-X . X . . X X . X . . . . . X X . . . X
+X X X X X X X X X X X X X X X X X X X X
+X . . . . . . . . . X X . I . . . . . X
+X . X X . X X . X . . . . X . X X X X X
+X . X X . X . . X . X X . X . . . . . X
+X . X . . X X . X . X X . X X . X X . X
+X . X X . X X X X . . X . X X X X X . X
+X X X X X X . X X . X X . X . . . . . X
+X . . . X . . . . . . X . X X . X X . X
+X X X . X X . X . X . X X X X . X . . X
+X . . . . . . X . X . . X . X . X X . X
+X X X X X X . X . X X . . . X . X X . X
+X . . . . . . X X X . . X . X . X X . X
+X X . X X . X X . . . X X . X . X . . X
+X X X X X X X X X . X X X X X X X X . X
+X . X X . . . . . . . X . X . X . . . X
+X . . X X . X X . X . . . . . X X X . X
+X X . . . . X X . X . X . X . . . X . X
+X X X . X . . X . X . X . X . X X X X X
+X . . . X . X X . X . X . X . . . . . X
 X X X X X X X X X X X X X X X X X X O X
 ```
 
