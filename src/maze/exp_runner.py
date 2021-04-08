@@ -1,4 +1,4 @@
-from maze import Maze
+# from maze import Maze
 
 
 def run_single_exp(env, policy):
