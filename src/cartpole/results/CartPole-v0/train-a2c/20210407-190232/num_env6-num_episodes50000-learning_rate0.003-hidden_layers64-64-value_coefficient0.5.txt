@@ -1,0 +1,4 @@
+datetime:20210407-190232
+hyperparameters:num_env:6, num_episodes:50000, learning_rate:0.003, hidden_layers:(64, 64), value_coefficient:0.5
+results:min_reward:17.0, max_reward:207.7, reward_variance:38.31877576332521, mean_reward:111.96799999999999, mean_actor_loss::0.10713389406491992, mean_critic_loss:1.6503508496408976, mean_entropy_loss::3.1385657262802122, mean_overall_loss:1.540109653704241
+wall_time:113.73795471700032
