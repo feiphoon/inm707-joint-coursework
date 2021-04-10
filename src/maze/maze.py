@@ -674,8 +674,8 @@ class Maze:
         return observation, reward, self.done
 
 
-m = Maze(400, has_treasure=False)
-m.display(debug=True)
+# m = Maze(400, has_treasure=False)
+# m.display(debug=True)
 # m.reset()
 # m.step(Action.UP)
 # m.display(debug=True)
