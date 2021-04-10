@@ -21,6 +21,8 @@ our environment on, but we have made an attempt to have a version that could be
 tweaked with hyperparameters.
 
 
+
+
 ## Setup
 
 `git clone` this repo so you can run it locally.
@@ -163,4 +165,25 @@ pytest -v --setup-show tests/test_maze.py
 Run both together! The `-v` or verbosity option is not required, but makes it a lot more satisfying.
 ```
 pytest -v --doctest-modules
+```
+
+### Recommended VSCode settings
+
+On your machine, create a `.vscode` folder in the root of this repo and create a `settings.json` inside it.
+
+Save the following into it:
+```json
+{
+    "python.terminal.activateEnvironment": true,
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--config",
+        ".flake8"
+    ],
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "python.pythonPath": "<path to your venv!>venv/bin/python3"
+}
 ```
