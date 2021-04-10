@@ -21,8 +21,6 @@ our environment on, but we have made an attempt to have a version that could be
 tweaked with hyperparameters.
 
 
-
-
 ## Setup
 
 `git clone` this repo so you can run it locally.
