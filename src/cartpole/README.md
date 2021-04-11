@@ -1,10 +1,10 @@
-# Cartpole
+# Cartpole
 
 This folder contains all code for Task 3 & Task 4.
 
 We studied A2C (Advantage Actor Critic) and multiple environments were needed.
 
-## Files:
+## Files
 
 - `actor_critic.py` - ActorCritic class
 - `actor_critic_test_v0.ipynb` - Test notebook for A2C-v0 best model
