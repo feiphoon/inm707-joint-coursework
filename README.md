@@ -1,24 +1,52 @@
 # INM707-joint-coursework
 
 ## Coursework details:
+
+See our [file tree documentation](TREE.md) for a quick repo overview.
 ### Task1:
+
 Build an environment fit to be used for Task 1 and 2.
 
-Documentation is found [here](MAZE.md) in a separate markdown doc.
+Relevant files are in the `src/maze` folder [here](src/maze):
+- `maze.py` - Maze environment base class
+- `q_maze.py` - QMaze environment modified for Q-value lookup
+
+Some documentation for the classes is found [here](src/maze/README.md) in a separate markdown doc.
 
 ### Task 2:
 
 Individual submission, not found in this repo.
 
-### Task3:
-We studied A2C (Advantage Actor Critic) and A3C (Asynchronous Actor Critic) -
-for the latter multiple environments were needed, and this led us to this package:
+### Task 3 & Task 4:
+
+We studied A2C (Advantage Actor Critic) and multiple environments were needed.
+
+This led us to this package:
 
 - https://stable-baselines3.readthedocs.io/en/master/
 
-The above package has the algorithms implemented, which was useful to test-drive
-our environment on, but we have made an attempt to have a version that could be
-tweaked with hyperparameters.
+The above package has the algorithms implemented, which was useful to test-drive our environment on, but we have made an attempt to have a version that could be tweaked with hyperparameters.
+
+Relevant files are in the `src/cartpole` folder [here](src/cartpole):
+- `actor_critic.py` - ActorCritic class
+- `actor_critic_test_v0.ipynb` - Test notebook for A2C-v0 best model
+- `actor_critic_test_v1.ipynb` - Test notebook for A2C-v1 best model
+- `actor_critic_train.ipynb` - Training notebook for both A2C best models
+- `actor_critic_train_analysis_cartpolev0.ipynb` - Analysis notebook to select A2C-v0 best model
+- `actor_critic_train_analysis_cartpolev1.ipynb` - Analysis notebook to select A2C-v1 best model
+- `best_model_results_v0_20210407-003658.csv` - Processed results to select A2C-v0 best model
+- `best_model_results_v1_20210405-225734.csv` - Processed results to select A2C-v1 best model
+- `best_models`
+- `├── cartpole-v0` - A2C-v0 best model files
+- `└── cartpole-v1` - A2C-v1 best model files
+- `log_processing.ipynb` - Log processing notebook
+- `random_evaluation.ipynb` - Random evaluation notebook
+- `results`
+- `├── CartPole-v0` - Dated results for all experiments trained on v0
+- `└── CartPole-v1` - Dated results for all experiments trained on v1
+- `training_results_v0_20210407-003658.csv` - Training results to select A2C-v0 best model
+- `training_results_v1_20210405-225734.csv` - Training results to select A2C-v1 best model
+- `utils.py` - Helpers
 
 
 ## Setup

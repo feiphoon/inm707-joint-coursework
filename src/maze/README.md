@@ -1,7 +1,14 @@
 # Maze (& QMaze) environments
 
+This folder contains all the code for Task 1 (that will be used for Task 2, which is not in this repo).
+
+## Files
+
+- `maze.py` - Maze environment base class
+- `q_maze.py` - QMaze environment modified for Q-value lookup
 
 ## Maze
+
 The maze environment is produced by the `Maze` class in `maze.py`. It uses [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm) to generate the walls and create a solvable maze each time.
 
 Provide the desired size (defaults to `5x5`), and it generates a maze that can take the following cell types. The result will have an entrance at the top and an exit at the bottom.
