@@ -1,5 +1,6 @@
 # INM707-joint-coursework
 
+This repo is at <https://github.com/feiphoon/inm707-joint-coursework>.
 ## Coursework details:
 
 See our [file tree documentation](TREE.md) for a quick repo overview.
